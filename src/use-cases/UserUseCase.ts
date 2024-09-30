@@ -1,16 +1,16 @@
 import { User } from "../domain/entities/User";
-import { UserRepository } from "../domain/interfaces/UserRepository";
+import { ReponseUserRepository, UserRepository } from "../domain/interfaces/UserRepository";
 
 export class UserUseCase {
   constructor(private userRepository: UserRepository) {}
 
-  async findByEmail(email: string):Promise<User> {
+  async findByEmail(email: string):Promise<ReponseUserRepository> {
     return await this.userRepository.findByEmail(email);
   }
-  async create(user: User): Promise<User> {
+  async create(user: User): Promise<ReponseUserRepository> {
     return await this.userRepository.create(user);
   }
-  async updateCpf(email: string): Promise<void> {
-    await this.userRepository.updateCpf(email);
+  async updateCpf(email: string, cpf: string): Promise<ReponseUserRepository> {
+    return await this.userRepository.updateCpf(email, cpf);
   }
 }
