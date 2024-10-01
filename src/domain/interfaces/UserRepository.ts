@@ -2,7 +2,7 @@ import { User } from "../entities/User";
 
 export type ReponseUserRepository = {
   message: string;
-  error?: boolean;
+  error: boolean;
   data?: User | null; 
 }
 

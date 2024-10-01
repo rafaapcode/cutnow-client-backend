@@ -18,12 +18,14 @@ export class MongoUserRepository implements UserRepository {
       if (!user) {
         return {
           message: "Usuário não existe",
+          error: true
         };
       }
 
       return {
         message: "Usuário encontrado com sucesso !",
         data: user,
+        error: false
       };
     } catch (error: any) {
       return {
@@ -41,6 +43,7 @@ export class MongoUserRepository implements UserRepository {
       return {
         message: "Usuário criado com sucesso !",
         data: newUser,
+        error: false
       };
     } catch (error: any) {
       return {
@@ -60,6 +63,7 @@ export class MongoUserRepository implements UserRepository {
 
       return {
         message: "CPF atualizado com sucesso !",
+        error: false
       };
     } catch (error: any) {
       return {
