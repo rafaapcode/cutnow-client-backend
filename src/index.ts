@@ -1,11 +1,11 @@
 import express from "express";
 import { errorHandler } from "./interface/middleware/errorHandler";
-import { userRoutes } from "./interface/routes/userRoutes";
+import { oauthRoutes } from "./interface/routes/oauthRoutes";
 
 const app = express();
 
 app.use(express.json());
-app.use("/", userRoutes);
+app.use("/auth", oauthRoutes)
 app.use(errorHandler);
 
 
