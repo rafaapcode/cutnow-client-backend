@@ -14,7 +14,7 @@ export class UserController {
         error: true,
         message: "Email é obrigatório"
       }
-      return res.json(errorReponse);
+      res.json(errorReponse);
     }
 
     const response = await this.userUseCase.findByEmail(email);
@@ -29,10 +29,10 @@ export class UserController {
         error: true,
         message: error.issues[0].message
       }
-      return res.json(errorReponse);
+      res.json(errorReponse);
     } 
 
-    const response = await this.userUseCase.create(data);
+    const response = await this.userUseCase.create(data!);
     res.json(response);
   }
 
@@ -45,7 +45,7 @@ export class UserController {
         error: true,
         message: "Email e CPF são obrigatórios"
       }
-      return res.json(errorReponse);
+      res.json(errorReponse);
     }
 
     const response = await this.userUseCase.updateCpf(email, cpf);
