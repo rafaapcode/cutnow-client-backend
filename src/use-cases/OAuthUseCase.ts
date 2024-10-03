@@ -5,7 +5,7 @@ export class OAuthUseCase {
   constructor(private oauthRepository: OAuthRepository) {}
 
   async signIn(code: string): Promise<Omit<ReponseGoogleOAuth, "data"> & { data?: User }> {
-    return this.oauthRepository.signIn(code);
+    return await this.oauthRepository.signIn(code);
   }
 
 }
