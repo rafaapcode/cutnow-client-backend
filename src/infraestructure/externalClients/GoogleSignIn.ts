@@ -35,8 +35,6 @@ export class GoogleSignIn implements OAuthRepository {
         message: userData.message,
       };
     }
-    console.log("User Data", userData.data);
-
     const revokeToken = await this.revokeToken(accessToken.data);
 
     if (revokeToken.error) {
