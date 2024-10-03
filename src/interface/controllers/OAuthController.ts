@@ -34,7 +34,6 @@ export class OAuthController {
     }
 
     const userExists = await this.userUseCase.findByEmail(response.data.email);
-
     if(!userExists.error) {
       res.status(200).json({message: userExists.message});
       return;
@@ -43,10 +42,12 @@ export class OAuthController {
     const userCreated = await this.userUseCase.create(response.data);
 
     if(userCreated.error) {
+      console.log("Dentro do erro")
       res.status(500).json({message: "Erro ao criar o usuário"});
       return;
     }
-
+    console.log("Fora do erro")
     res.status(201).json({ message: "Usuário criado e autenticado com sucesso" });
+    return;
   }
 }
