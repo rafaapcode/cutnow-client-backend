@@ -4,6 +4,7 @@ import {
   ReponseUserRepository,
   UserRepository,
 } from "../../domain/interfaces/UserRepository";
+import { logger } from "../logger";
 
 export class MongoUserRepository implements UserRepository {
 
@@ -16,18 +17,23 @@ export class MongoUserRepository implements UserRepository {
       });
 
       if (!user) {
+        logger.info("Usuário não existe");
         return {
           message: "Usuário não existe",
           error: true
         };
       }
 
+      logger.info("Usuário encontrado");
       return {
         message: "Usuário encontrado com sucesso !",
         data: user,
         error: false
       };
     } catch (error: any) {
+      logger.error(`findByEmail error Data: `, error.response.data)
+      logger.error(`findByEmail error Status: `, error.response.status)
+      logger.error(`findByEmail error Headers: `, error.response.headers)
       return {
         message: error.message,
         error: true,
@@ -40,12 +46,16 @@ export class MongoUserRepository implements UserRepository {
         data: user,
       });
 
+      logger.info("Usuário criado com sucesso !");
       return {
         message: "Usuário criado com sucesso !",
         data: newUser,
         error: false
       };
     } catch (error: any) {
+      logger.error(`createUser error Data: `, error.response.data)
+      logger.error(`createUser error Status: `, error.response.status)
+      logger.error(`createUser error Headers: `, error.response.headers)
       return {
         message: error.message,
         error: true,
@@ -61,11 +71,15 @@ export class MongoUserRepository implements UserRepository {
         },
       });
 
+      logger.info("Cpf Atualizado");
       return {
         message: "CPF atualizado com sucesso !",
         error: false
       };
     } catch (error: any) {
+      logger.error(`updateCpf error Data: `, error.response.data)
+      logger.error(`updateCpf error Status: `, error.response.status)
+      logger.error(`updateCpf error Headers: `, error.response.headers)
       return {
         message: error.message,
         error: true,

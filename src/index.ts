@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import { logger } from "./infraestructure/logger";
 import { errorHandler } from "./interface/middleware/errorHandler";
 import { oauthRoutes } from "./interface/routes/oauthRoutes";
 
@@ -13,5 +14,5 @@ app.use(errorHandler);
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log("Servidor rodando na porta 3000");
+  logger.info("Rodando na porta " + PORT);
 });
