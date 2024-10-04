@@ -31,9 +31,7 @@ export class MongoUserRepository implements UserRepository {
         error: false
       };
     } catch (error: any) {
-      logger.error(`findByEmail error Data: `, error.response.data)
-      logger.error(`findByEmail error Status: `, error.response.status)
-      logger.error(`findByEmail error Headers: `, error.response.headers)
+      logger.error("findByEmail error", error)
       return {
         message: error.message,
         error: true,
@@ -53,9 +51,7 @@ export class MongoUserRepository implements UserRepository {
         error: false
       };
     } catch (error: any) {
-      logger.error(`createUser error Data: `, error.response.data)
-      logger.error(`createUser error Status: `, error.response.status)
-      logger.error(`createUser error Headers: `, error.response.headers)
+      logger.error("createUser error", error)
       return {
         message: error.message,
         error: true,
@@ -77,9 +73,7 @@ export class MongoUserRepository implements UserRepository {
         error: false
       };
     } catch (error: any) {
-      logger.error(`updateCpf error Data: `, error.response.data)
-      logger.error(`updateCpf error Status: `, error.response.status)
-      logger.error(`updateCpf error Headers: `, error.response.headers)
+      logger.error("updateCpf error", error)
       return {
         message: error.message,
         error: true,
