@@ -24,4 +24,3 @@ const oauthController = new OAuthController(oauthUseCase, userUseCase, jwtUseCas
 router.post("/", (req: Request, res: Response) => oauthController.signIn(req, res))
 
 export { router as oauthRoutes };
-
