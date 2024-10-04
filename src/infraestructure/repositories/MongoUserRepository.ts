@@ -60,13 +60,12 @@ export class MongoUserRepository implements UserRepository {
   }
   async updateCpf(email: string, cpf: string): Promise<ReponseUserRepository> {
     try {
-      await this.prisma.user.update({
+     await this.prisma.user.update({
         where: { email },
         data: {
           cpf,
         },
       });
-
       logger.info("Cpf Atualizado");
       return {
         message: "CPF atualizado com sucesso !",
