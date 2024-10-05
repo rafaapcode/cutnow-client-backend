@@ -2,7 +2,7 @@ import {
   JWTTokenRepository,
   PayloadTokenType,
   ResponseToken,
-} from "../domain/interfaces/JwtTokenRepository";
+} from "../interfaces/JwtTokenRepository";
 
 export class JwtUseCase {
   constructor(private jwtToken: JWTTokenRepository) {}

@@ -1,9 +1,9 @@
 import cors from "cors";
 import express from "express";
 import { logger } from "./infraestructure/logger";
-import { errorHandler } from "./interface/middleware/errorHandler";
-import { oauthRoutes } from "./interface/routes/oauthRoutes";
-import { updateCpfRouter } from "./interface/routes/userRoutes";
+import { errorHandler } from "./presentation/middleware/errorHandler";
+import { oauthRoutes } from "./presentation/routes/oauthRoutes";
+import { updateCpfRouter } from "./presentation/routes/userRoutes";
 
 const app = express();
 

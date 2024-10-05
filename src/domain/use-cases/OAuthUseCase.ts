@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { OAuthRepository, ReponseGoogleOAuth } from "../domain/interfaces/OAuthRepository";
+import { OAuthRepository, ReponseGoogleOAuth } from "../interfaces/OAuthRepository";
 
 export class OAuthUseCase {
   constructor(private oauthRepository: OAuthRepository) {}

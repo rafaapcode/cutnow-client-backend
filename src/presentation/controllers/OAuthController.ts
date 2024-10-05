@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
+import { JwtUseCase } from "../../domain/use-cases/JwtUseCase";
+import { OAuthUseCase } from "../../domain/use-cases/OAuthUseCase";
+import { UserUseCase } from "../../domain/use-cases/UserUseCase";
 import { logger } from "../../infraestructure/logger";
-import { JwtUseCase } from "../../use-cases/JwtUseCase";
-import { OAuthUseCase } from "../../use-cases/OAuthUseCase";
-import { UserUseCase } from "../../use-cases/UserUseCase";
 
 export class OAuthController {
   constructor(

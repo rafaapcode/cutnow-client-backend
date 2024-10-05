@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response, Router } from "express";
+import { UserUseCase } from "../../domain/use-cases/UserUseCase";
 import { MongoUserRepository } from "../../infraestructure/repositories/MongoUserRepository";
-import { UserUseCase } from "../../use-cases/UserUseCase";
 import { UserController } from "../controllers/UserController";
 import { authenticateMiddleware } from "../middleware/auth";
 

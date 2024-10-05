@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { Request, Response, Router } from "express";
+import { JwtUseCase } from "../../domain/use-cases/JwtUseCase";
+import { OAuthUseCase } from "../../domain/use-cases/OAuthUseCase";
+import { UserUseCase } from "../../domain/use-cases/UserUseCase";
 import { GoogleSignIn } from "../../infraestructure/externalClients/GoogleSignIn";
 import { JwtToken } from "../../infraestructure/jwtToken";
 import { MongoUserRepository } from "../../infraestructure/repositories/MongoUserRepository";
-import { JwtUseCase } from "../../use-cases/JwtUseCase";
-import { OAuthUseCase } from "../../use-cases/OAuthUseCase";
-import { UserUseCase } from "../../use-cases/UserUseCase";
 import { OAuthController } from "../controllers/OAuthController";
 
 const router = Router();
@@ -24,3 +24,4 @@ const oauthController = new OAuthController(oauthUseCase, userUseCase, jwtUseCas
 router.post("/", (req: Request, res: Response) => oauthController.signIn(req, res))
 
 export { router as oauthRoutes };
+
