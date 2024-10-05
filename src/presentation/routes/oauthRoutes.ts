@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { ExpressOauthAdapter } from "../../adapters/oauthAdapter/expressOauthAdapter";
 import { JwtUseCase } from "../../domain/use-cases/JwtUseCase";
 import { OAuthUseCase } from "../../domain/use-cases/OAuthUseCase";
 import { UserUseCase } from "../../domain/use-cases/UserUseCase";
@@ -21,7 +22,7 @@ const jwtUseCase = new JwtUseCase(jwtToken);
 const oauthUseCase = new OAuthUseCase(googleSignIn, userUseCase, jwtUseCase);
 const oauthController = new OAuthController(oauthUseCase);
 
-router.post("/", (req: Request, res: Response) => oauthController.signIn(req, res))
+router.post("/", ExpressOauthAdapter.signIn(oauthController))
 
 export { router as oauthRoutes };
 

@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { ExpressUserAdapter } from "../../adapters/userAdapter/expressUserAdapter";
 import { UserUseCase } from "../../domain/use-cases/UserUseCase";
 import { MongoUserRepository } from "../../infraestructure/repositories/MongoUserRepository";
 import { UserController } from "../controllers/UserController";
@@ -12,9 +13,7 @@ const mongoRepo = new MongoUserRepository(prisma);
 const userUseCase = new UserUseCase(mongoRepo);
 const userController = new UserController(userUseCase);
 
-routes.patch("/:email", authenticateMiddleware, (req: Request, res: Response) =>
-  userController.updateCpf(req, res)
-);
+routes.patch("/:email", authenticateMiddleware, ExpressUserAdapter.updateCpf(userController));
 
 export { routes as updateCpfRouter };
 
