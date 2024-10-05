@@ -13,13 +13,13 @@ const router = Router();
 
 const fetcher = axios;
 const googleSignIn = new GoogleSignIn(fetcher);
-const oauthUseCase = new OAuthUseCase(googleSignIn);
 const prisma = new PrismaClient();
 const mongoUserRepo = new MongoUserRepository(prisma);
 const userUseCase = new UserUseCase(mongoUserRepo);
 const jwtToken = new JwtToken();
 const jwtUseCase = new JwtUseCase(jwtToken);
-const oauthController = new OAuthController(oauthUseCase, userUseCase, jwtUseCase);
+const oauthUseCase = new OAuthUseCase(googleSignIn, userUseCase, jwtUseCase);
+const oauthController = new OAuthController(oauthUseCase);
 
 router.post("/", (req: Request, res: Response) => oauthController.signIn(req, res))
 

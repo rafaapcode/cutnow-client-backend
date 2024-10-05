@@ -8,17 +8,8 @@ export class UserController {
     const { email } = req.params;
     const { cpf } = req.body;
 
-    if (!email || !cpf) {
-      res.status(400).json({ message: "Email e CPF são obrigatórios." });
-      return;
-    }
+   const { data, statusCode } = await this.userUseCase.updateCpf(email, cpf);
 
-    const updateCpf = await this.userUseCase.updateCpf(email, cpf);
-    if (updateCpf.error) {
-      res.status(400).json({ message: updateCpf.message });
-      return;
-    }
-
-    res.status(200).json({ message: "CPF atualizado com sucesso !" });
+   res.status(statusCode).json(data);
   }
 }
