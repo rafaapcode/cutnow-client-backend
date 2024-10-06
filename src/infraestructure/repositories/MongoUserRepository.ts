@@ -40,6 +40,20 @@ export class MongoUserRepository implements UserRepository {
   }
   async create(user: User): Promise<ReponseUserRepository> {
     try {
+      const userExists = await this.prisma.user.findUnique({
+        where: {
+          email: user.email
+        }
+      });
+
+      if(userExists) {
+        logger.info("Usuário existente !");
+        return {
+          error: true,
+          message: "Usuário já existe"
+        }
+      }
+
       const newUser = await this.prisma.user.create({
         data: user,
       });
