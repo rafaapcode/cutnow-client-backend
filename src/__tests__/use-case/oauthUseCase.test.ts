@@ -1,11 +1,11 @@
 import { describe, expect, test, vi } from "vitest";
-import { User } from "../../../domain/entities/User";
-import { JwtUseCase } from "../../../domain/use-cases/JwtUseCase";
-import { OAuthUseCase } from "../../../domain/use-cases/OAuthUseCase";
-import { UserUseCase } from "../../../domain/use-cases/UserUseCase";
-import { FakerUserRepository } from "../userUseCase/FakerUserRepository";
-import { FakerGoogleSignIn } from "./FakerGoogleSignIn";
-import { FakerJwtToken } from "./FakerJwtToken";
+import { User } from "../../domain/entities/User";
+import { JwtUseCase } from "../../domain/use-cases/JwtUseCase";
+import { OAuthUseCase } from "../../domain/use-cases/OAuthUseCase";
+import { UserUseCase } from "../../domain/use-cases/UserUseCase";
+import { FakerGoogleSignIn } from "./mocks/FakerGoogleSignIn";
+import { FakerJwtToken } from "./mocks/FakerJwtToken";
+import { FakerUserRepository } from "./mocks/FakerUserRepository";
 
 describe("OatuhUseCase", () => {
   const fakerRepository = new FakerUserRepository();

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
-import { User } from "../../../domain/entities/User";
-import { UserUseCase } from "../../../domain/use-cases/UserUseCase";
-import { FakerUserRepository } from "./FakerUserRepository";
+import { User } from "../../domain/entities/User";
+import { UserUseCase } from "../../domain/use-cases/UserUseCase";
+import { FakerUserRepository } from "./mocks/FakerUserRepository";
 describe("UserUseCase", () => {
   const newUser = new User(
     "Alan Turing",
