@@ -6,7 +6,7 @@ import {
 } from "../../domain/interfaces/OAuthRepository";
 import { logger } from "../logger";
 
-type UseData = {
+type UserData = {
   error: boolean;
   data?: User;
   message: string;
@@ -106,7 +106,7 @@ export class GoogleSignIn implements OAuthRepository {
     }
   }
 
-  private async getUserData(token: string): Promise<UseData> {
+  private async getUserData(token: string): Promise<UserData> {
     try {
       const { data } = await this.fetcher.get(
         "https://www.googleapis.com/oauth2/v2/userinfo",
