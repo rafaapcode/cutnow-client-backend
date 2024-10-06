@@ -10,6 +10,7 @@ export type OauthUseCaseResponse = {
     message: string;
     token?: string | undefined;
     user?: {
+      avatar: string;
       email: string;
       nome: string;
       id: string;
@@ -92,6 +93,7 @@ export class OAuthUseCase {
             message: userExists.message,
             token: token.token,
             user: {
+              avatar: userExists.data?.avatar!,
               email: userExists.data?.email!,
               nome: userExists.data?.nome!,
               id: userExists.data?.id!
@@ -126,6 +128,7 @@ export class OAuthUseCase {
           message: "Usuário criado e autenticado com sucesso",
           token: token.token,
           user: {
+            avatar: userCreated.data?.avatar!,
             email: userCreated.data?.email!,
             nome: userCreated.data?.nome!,
             id: userCreated.data?.id!

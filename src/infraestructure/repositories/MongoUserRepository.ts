@@ -50,7 +50,8 @@ export class MongoUserRepository implements UserRepository {
         logger.info("Usuário existente !");
         return {
           error: true,
-          message: "Usuário já existe"
+          message: "Usuário já existe",
+          data: userExists
         }
       }
 
