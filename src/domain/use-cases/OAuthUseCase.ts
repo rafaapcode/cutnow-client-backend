@@ -9,6 +9,11 @@ export type OauthUseCaseResponse = {
     error: boolean;
     message: string;
     token?: string | undefined;
+    user?: {
+      email: string;
+      nome: string;
+      id: string;
+    }
   };
 };
 
@@ -28,6 +33,7 @@ export class OAuthUseCase {
           data: {
             error: true,
             message: "Code is required",
+            user: undefined
           },
         };
       }
@@ -39,6 +45,7 @@ export class OAuthUseCase {
           data: {
             error: true,
             message: "Code must be a string",
+            user: undefined
           },
         };
       }
@@ -52,6 +59,7 @@ export class OAuthUseCase {
           data: {
             error: true,
             message: response.message,
+            user: undefined
           },
         };
       }
@@ -63,6 +71,7 @@ export class OAuthUseCase {
           data: {
             error: true,
             message: "Ocorreu um erro ao buscar os dados",
+            user: undefined
           },
         };
       }
@@ -82,6 +91,11 @@ export class OAuthUseCase {
             error: false,
             message: userExists.message,
             token: token.token,
+            user: {
+              email: userExists.data?.email!,
+              nome: userExists.data?.nome!,
+              id: userExists.data?.id!
+            }
           },
         };
       }
@@ -95,6 +109,7 @@ export class OAuthUseCase {
           data: {
             error: true,
             message: "Erro ao criar o usuário",
+            user: undefined
           },
         };
       }
@@ -110,6 +125,11 @@ export class OAuthUseCase {
           error: false,
           message: "Usuário criado e autenticado com sucesso",
           token: token.token,
+          user: {
+            email: userCreated.data?.email!,
+            nome: userCreated.data?.nome!,
+            id: userCreated.data?.id!
+          } 
         },
       };
     } catch (error: any) {
@@ -119,6 +139,7 @@ export class OAuthUseCase {
         data: {
           error: true,
           message: error.message,
+          user: undefined
         },
       };
     }
