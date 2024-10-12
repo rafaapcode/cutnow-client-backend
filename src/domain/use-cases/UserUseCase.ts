@@ -1,3 +1,4 @@
+import { logger } from "../../infraestructure/logger";
 import { SchedulesToUser } from "../entities/Schedules";
 import { User } from "../entities/User";
 import {
@@ -64,6 +65,7 @@ export class UserUseCase {
   async getAllSchedules(email: string): Promise<UserScheduleUseCaseResponse> {
    try {
     if(!email) {
+      logger.warn("Nenhum email enviado")
       return  {
         statusCode: 400,
         data: {
@@ -73,18 +75,20 @@ export class UserUseCase {
       }
     }
 
-    const { error, data } = await this.userRepository.getAllSchedules(email);
+    const { error, data, message } = await this.userRepository.getAllSchedules(email);
 
     if(error) {
+      logger.error("ocorreu um ero ao buscar os agendamentos do usuário");
       return {
         statusCode: 400,
         data: {
           error,
-          message: "Occur an error to request all schedules"
+          message: message || ""
         }
       }
     }
 
+    logger.info("Busca dos agendamentos bem sucedido");
     return {
       statusCode: 200,
       data: {
@@ -94,6 +98,7 @@ export class UserUseCase {
       }
     }
    } catch (error: any) {
+      logger.error("Ocorreu um erro ao buscar os agendamentos");
       return {
         statusCode: 500,
         data: {

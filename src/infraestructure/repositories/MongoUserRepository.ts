@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { SchedulesToUser } from "../../domain/entities/Schedules";
 import { User } from "../../domain/entities/User";
 import {
   ReponseUserRepository,
@@ -28,12 +27,15 @@ export class MongoUserRepository implements UserRepository {
           }
         }
       })
-      const schedulesOfTheUser = schedules.map(({Agendamentos}) => {
-        const serviceType = Agendamentos?.tipoServico || "";
-        const hour = Agendamentos?.horario || new Date();
-        const day = Agendamentos?.dia || "";
-        return new SchedulesToUser(serviceType, hour, day);
-      });
+     
+      if (!schedules[0].Agendamentos) {
+        return {
+          error: true,
+          message: "Não possui agendamentos"
+        }
+      }
+
+      const schedulesOfTheUser = schedules.map(({Agendamentos}) => Agendamentos!);
       return {
         error: false,
         data: schedulesOfTheUser
@@ -42,6 +44,7 @@ export class MongoUserRepository implements UserRepository {
       logger.error(error.message);
       return {
         error: true,
+        message: "erro interno"
       }
     }
   }

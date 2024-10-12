@@ -9,6 +9,7 @@ export type ReponseUserRepository = {
 
 export type ReponseUserSchedules = {
   error: boolean;
+  message?: string;
   data?: SchedulesToUser[] 
 }
 

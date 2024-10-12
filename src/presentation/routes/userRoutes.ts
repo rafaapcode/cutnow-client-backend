@@ -16,5 +16,5 @@ const userController = new UserController(userUseCase);
 routes.patch("/:email", authenticateMiddleware, ExpressUserAdapter.updateCpf(userController));
 routes.get("/:email", authenticateMiddleware, ExpressUserAdapter.getUserSchedules(userController));
 
-export { routes as updateCpfRouter };
+export { routes as userRouter };
 
