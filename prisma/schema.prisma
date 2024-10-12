@@ -18,7 +18,7 @@ model User {
   avatar       String         @db.String
   cpf          String?        @db.String
   solicitacoes Solicitacoes[]
-  Agendamentos Agendamentos?
+  Agendamentos Agendamentos[]
 }
 
 model Barbearia {
@@ -78,8 +78,7 @@ model Solicitacoes {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   tipoServico String   @db.String
   nomeCliente String   @db.String
-  horario     DateTime @db.Date
-  dia         String   @db.String
+  data        DateTime @db.Date
 
   emailCliente String @unique @db.String
   usuario      User   @relation(fields: [emailCliente], references: [email], onDelete: Cascade, onUpdate: Cascade)
@@ -95,8 +94,7 @@ model Agendamentos {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   tipoServico String   @db.String
   nomeCliente String   @db.String
-  horario     DateTime @db.Date
-  dia         String   @db.String
+  data        DateTime @db.Date
 
   emailCliente String @unique @db.String
   usuario      User   @relation(fields: [emailCliente], references: [email], onDelete: Cascade, onUpdate: Cascade)
@@ -107,7 +105,7 @@ model Agendamentos {
   barbeiro_id String   @db.ObjectId
   barbeiro    Barbeiro @relation(fields: [barbeiro_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  @@fulltext([dia, barbeiro_id])
+  @@fulltext([data, barbeiro_id])
 }
 
 type InfoBarbeiro {

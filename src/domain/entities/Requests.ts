@@ -4,8 +4,7 @@ export class Requests {
     public id: string,
     public tipoServico: string,
     public nomeCliente: string,
-    public horario: Date,
-    public dia: string,
+    public data: Date,
     public emailCliente: string,
     public barbearia_id: string,
     public barbeiro_id: string

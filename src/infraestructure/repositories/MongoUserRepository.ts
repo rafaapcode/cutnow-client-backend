@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@prisma/client";
 import { User } from "../../domain/entities/User";
 import {
   ReponseUserRepository,
@@ -8,7 +8,6 @@ import {
 import { logger } from "../logger";
 
 export class MongoUserRepository implements UserRepository {
-
   constructor(private prisma: PrismaClient) {}
 
   async getAllSchedules(email: string): Promise<ReponseUserSchedules> {
@@ -21,31 +20,31 @@ export class MongoUserRepository implements UserRepository {
           Agendamentos: {
             select: {
               tipoServico: true,
-              horario: true,
-              dia: true
-            }
-          }
-        }
-      })
-     
+              data: true
+            },
+          },
+        },
+      });
+
       if (!schedules[0].Agendamentos) {
         return {
           error: true,
-          message: "Não possui agendamentos"
-        }
+          message: "Não possui agendamentos",
+        };
       }
 
-      const schedulesOfTheUser = schedules.map(({Agendamentos}) => Agendamentos!);
       return {
         error: false,
-        data: schedulesOfTheUser
-      }
+        data: schedules[0].Agendamentos!,
+      };
     } catch (error: any) {
       logger.error(error.message);
       return {
         error: true,
-        message: "erro interno"
-      }
+        message: "erro interno",
+      };
+    } finally {
+      this.prisma.$disconnect();
     }
   }
   async findByEmail(email: string): Promise<ReponseUserRepository> {
@@ -58,7 +57,7 @@ export class MongoUserRepository implements UserRepository {
         logger.info("Usuário não existe");
         return {
           message: "Usuário não existe",
-          error: true
+          error: true,
         };
       }
 
@@ -66,31 +65,33 @@ export class MongoUserRepository implements UserRepository {
       return {
         message: "Usuário encontrado com sucesso !",
         data: user,
-        error: false
+        error: false,
       };
     } catch (error: any) {
-      logger.error("findByEmail error", error)
+      logger.error("findByEmail error", error);
       return {
         message: error.message,
         error: true,
       };
+    } finally {
+      this.prisma.$disconnect();
     }
   }
   async create(user: User): Promise<ReponseUserRepository> {
     try {
       const userExists = await this.prisma.user.findUnique({
         where: {
-          email: user.email
-        }
+          email: user.email,
+        },
       });
 
-      if(userExists) {
+      if (userExists) {
         logger.info("Usuário existente !");
         return {
           error: true,
           message: "Usuário já existe",
-          data: userExists
-        }
+          data: userExists,
+        };
       }
 
       const newUser = await this.prisma.user.create({
@@ -101,19 +102,21 @@ export class MongoUserRepository implements UserRepository {
       return {
         message: "Usuário criado com sucesso !",
         data: newUser,
-        error: false
+        error: false,
       };
     } catch (error: any) {
-      logger.error("createUser error", error)
+      logger.error("createUser error", error);
       return {
         message: error.message,
         error: true,
       };
+    } finally {
+      this.prisma.$disconnect();
     }
   }
   async updateCpf(email: string, cpf: string): Promise<ReponseUserRepository> {
     try {
-     await this.prisma.user.update({
+      await this.prisma.user.update({
         where: { email },
         data: {
           cpf,
@@ -122,14 +125,16 @@ export class MongoUserRepository implements UserRepository {
       logger.info("Cpf Atualizado");
       return {
         message: "CPF atualizado com sucesso !",
-        error: false
+        error: false,
       };
     } catch (error: any) {
-      logger.error("updateCpf error", error)
+      logger.error("updateCpf error", error);
       return {
         message: error.message,
         error: true,
       };
+    } finally {
+      this.prisma.$disconnect();
     }
   }
 }
