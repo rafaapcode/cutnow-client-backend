@@ -18,6 +18,7 @@ model User {
   avatar       String         @db.String
   cpf          String?        @db.String
   solicitacoes Solicitacoes[]
+  Agendamentos Agendamentos?
 }
 
 model Barbearia {
@@ -33,6 +34,7 @@ model Barbearia {
   servicos        Servicos[]
   barbeiro        Barbeiro[]
   solicitacoes    Solicitacoes[]
+  Agendamentos    Agendamentos[]
 
   @@fulltext([email, latitude, longitude, nomeDaBarbearia])
 }
@@ -69,6 +71,7 @@ model Barbeiro {
   barbearia_id String         @db.ObjectId
   barbearia    Barbearia      @relation(fields: [barbearia_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   solicitacoes Solicitacoes[]
+  Agendamentos Agendamentos[]
 }
 
 model Solicitacoes {
@@ -86,6 +89,25 @@ model Solicitacoes {
 
   barbeiro_id String   @db.ObjectId
   barbeiro    Barbeiro @relation(fields: [barbeiro_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Agendamentos {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  tipoServico String   @db.String
+  nomeCliente String   @db.String
+  horario     DateTime @db.Date
+  dia         String   @db.String
+
+  emailCliente String @unique @db.String
+  usuario      User   @relation(fields: [emailCliente], references: [email], onDelete: Cascade, onUpdate: Cascade)
+
+  barbearia_id String    @db.ObjectId
+  barbearia    Barbearia @relation(fields: [barbearia_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  barbeiro_id String   @db.ObjectId
+  barbeiro    Barbeiro @relation(fields: [barbeiro_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@fulltext([dia, barbeiro_id])
 }
 
 type InfoBarbeiro {
