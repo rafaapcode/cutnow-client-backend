@@ -1,0 +1,46 @@
+import { Barbearia } from "@prisma/client";
+
+export class Barbershop implements Partial<Barbearia> {
+  constructor(
+    public id: string,
+    public nomeDaBarbearia: string,
+    public informacoes: {
+      cep: string;
+      rua: string;
+      bairro: string;
+      cidade: string;
+      estado: string;
+      numero: number;
+      horarioAbertura: string;
+      horarioFechamento: string;
+      fotosEstruturaBarbearia: string[];
+      fotoBanner: string;
+      logo: string;
+      status: string;
+    },
+    public servicos: {
+      nomeService: string;
+      tempoMedio: number;
+      preco: number;
+    }[],
+    public barbeiros?: {
+      id: string;
+      nome: string;
+      informacoes: {
+        foto: string;
+      }
+    }[]
+  ) {}
+}
+
+export class Barbershops {
+  constructor(
+    public id: string,
+    public nomeDaBarbearia: string,
+    public informacoes: {
+      logo: string;
+      status: string;
+    },
+  ) {}
+}
+
