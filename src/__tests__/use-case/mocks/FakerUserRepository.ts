@@ -1,3 +1,4 @@
+import { SchedulesToUser } from "../../../domain/entities/Schedules";
 import { User } from "../../../domain/entities/User";
 import { ReponseUserRepository, ReponseUserSchedules, UserRepository } from "../../../domain/interfaces/UserRepository";
 export class FakerUserRepository implements UserRepository {
@@ -66,8 +67,24 @@ export class FakerUserRepository implements UserRepository {
       message: "Usuário atualizado com sucesso"
     }
   }
+  async getAllSchedules(email: string): Promise<ReponseUserSchedules> {
+    if(!email) {
+      return {
+        error: true
+      }
+    }
 
-  getAllSchedules(email: string): Promise<ReponseUserSchedules> {
-    throw new Error("Method not implemented.");
+    const user = this.inMemoryDatabase.get(email);
+
+    if(!user) {
+      return {
+        error: true
+      }
+    }
+
+    return {
+      error: false,
+      data: [new SchedulesToUser("Cabelo", new Date(), "20/09/2024")]
+    }
   }
 } 

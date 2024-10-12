@@ -55,4 +55,21 @@ describe("UserUseCase", () => {
       expect(mockUser.data.message).toEqual("Email e CPF são obrigatórios.");
     });
   });
+
+  describe("SCHEDULE FEATURE", () => {
+    test("Return statusCode 400 if the EMAIL was not passed", async () => {
+      const schedule = await sut.getAllSchedules("");
+      expect(schedule.statusCode).toBe(400);
+    });
+  
+    test("Return statusCode 400 if the user is not found", async () => {
+      const schedule = await sut.getAllSchedules("teste@gmail.com");
+      expect(schedule.statusCode).toBe(400);
+    });
+
+    test("Return statusCode 200 with Schedules", async () => {
+      const schedule = await sut.getAllSchedules("alanTuring@tech.com");
+      expect(schedule.statusCode).toBe(200);
+    });
+  });
 });
