@@ -1,7 +1,7 @@
 export class SchedulesToUser {
   constructor(
     public tipoServico: string,
-    public data: Date,
+    public data: string,
   ) {}
 }
 
@@ -9,7 +9,7 @@ export class SchedulesToBarber {
   constructor(
     public nomeCliente: string,
     public tipoServico: string,
-    public data: Date,
+    public data: string,
   ) {}
 }
 
@@ -17,7 +17,7 @@ export class SchedulesToBarbershop {
   constructor(
     public nomeCliente: string,
     public tipoServico: string,
-    public data: Date,
+    public data: string,
     public barber?: {
       informacoes: {
         foto: string;

@@ -1,3 +1,4 @@
+import { SchedulesToBarber } from "./Schedules";
 
 export class Barbers {
   constructor(
@@ -10,6 +11,7 @@ export class Barbers {
       banner: string;
       foto: string;
       descricao: string;
-    } | null
+    } | null,
+    public schedules?: SchedulesToBarber[]
   ) {}
 }

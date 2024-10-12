@@ -84,7 +84,7 @@ export class FakerUserRepository implements UserRepository {
 
     return {
       error: false,
-      data: [new SchedulesToUser("Cabelo", new Date(), "20/09/2024")]
+      data: [new SchedulesToUser("Cabelo",  "20/09/2024")]
     }
   }
 } 
