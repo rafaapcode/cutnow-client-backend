@@ -9,6 +9,13 @@ export type ResponseToken = {
   message: string;
 }
 
+export type ResponseAuthVerification = {
+  error: boolean;
+  message: string;
+  isAuthenticate: boolean;
+}
+
 export interface JWTTokenRepository {
   createToken(payload: PayloadTokenType): ResponseToken
+  verifyToken(token: string): ResponseAuthVerification
 }

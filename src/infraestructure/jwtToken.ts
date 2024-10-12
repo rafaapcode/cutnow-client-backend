@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import { JWTTokenRepository, PayloadTokenType, ResponseToken } from "../domain/interfaces/JwtTokenRepository";
+import { JWTTokenRepository, PayloadTokenType, ResponseAuthVerification, ResponseToken } from "../domain/interfaces/JwtTokenRepository";
+import { logger } from "./logger";
 
 export class JwtToken implements JWTTokenRepository {
   createToken(payload: PayloadTokenType): ResponseToken {
@@ -17,5 +18,31 @@ export class JwtToken implements JWTTokenRepository {
       }
     }
   }
-  
+  verifyToken(token: string): ResponseAuthVerification {
+    try {
+      const verifyToken = jwt.verify(token, process.env.JWT_SECRET!);
+
+      if(!verifyToken) {
+        return {
+          error: true,
+          message: "Token inválido",
+          isAuthenticate: false
+        }
+      }
+
+      return {
+        error: false,
+        message: "Usuário autenticado",
+        isAuthenticate: true
+      }
+
+    } catch (error: any) {
+      logger.error(error.message);
+      return {
+        error: true,
+        message: error.message,
+        isAuthenticate: false
+      }
+    }
+  }
 }
