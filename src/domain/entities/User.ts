@@ -7,5 +7,10 @@ export class User {
     public avatar: string,
     public cpf?: string | null,
     public id?: string,
+    public schedules?: {
+      tipoServico: string;
+      horario: Date;
+      dia: string;
+    }
   ) {}
 }

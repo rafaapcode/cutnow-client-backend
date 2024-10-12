@@ -9,7 +9,7 @@ export type ReponseUserRepository = {
 
 export type ReponseUserSchedules = {
   error: boolean;
-  data?: SchedulesToUser[]
+  data?: SchedulesToUser[] 
 }
 
 export interface UserRepository {

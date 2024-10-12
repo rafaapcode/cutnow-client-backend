@@ -14,4 +14,16 @@ export class ExpressUserAdapter {
       res.status(statusCode).json(body);
     }
   }
+
+  static getUserSchedules(router: IUserAdapter) {
+    return async (req: Request, res: Response) => {
+      const request = {
+        params: req.params
+      }
+
+      const { body, statusCode } = await router.getAllSchedules(request);
+      
+      res.status(statusCode).json(body);
+    }
+  }
 };

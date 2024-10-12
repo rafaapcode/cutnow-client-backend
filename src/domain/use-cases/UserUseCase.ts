@@ -1,3 +1,4 @@
+import { SchedulesToUser } from "../entities/Schedules";
 import { User } from "../entities/User";
 import {
   ReponseUserRepository,
@@ -9,6 +10,15 @@ export type UserUseCaseResponse = {
   data: {
     error: boolean;
     message: string;
+  };
+};
+
+export type UserScheduleUseCaseResponse = {
+  statusCode: number;
+  data: {
+    error: boolean;
+    message: string;
+    schedules?: SchedulesToUser[];
   };
 };
 
@@ -50,5 +60,47 @@ export class UserUseCase {
         message: "CPF atualizado com sucesso !",
       },
     };
+  }
+  async getAllSchedules(email: string): Promise<UserScheduleUseCaseResponse> {
+   try {
+    if(!email) {
+      return  {
+        statusCode: 400,
+        data: {
+          error: true,
+          message: "Email is required"
+        }
+      }
+    }
+
+    const { error, data } = await this.userRepository.getAllSchedules(email);
+
+    if(error) {
+      return {
+        statusCode: 400,
+        data: {
+          error,
+          message: "Occur an error to request all schedules"
+        }
+      }
+    }
+
+    return {
+      statusCode: 200,
+      data: {
+        error: false,
+        message: "All schedules",
+        schedules: data
+      }
+    }
+   } catch (error: any) {
+      return {
+        statusCode: 500,
+        data: {
+          error: true,
+          message: error.message
+        }
+      }
+   }
   }
 }

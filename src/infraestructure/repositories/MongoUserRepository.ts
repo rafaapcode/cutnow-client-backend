@@ -1,7 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { SchedulesToUser } from "../../domain/entities/Schedules";
 import { User } from "../../domain/entities/User";
 import {
   ReponseUserRepository,
+  ReponseUserSchedules,
   UserRepository,
 } from "../../domain/interfaces/UserRepository";
 import { logger } from "../logger";
@@ -10,6 +12,39 @@ export class MongoUserRepository implements UserRepository {
 
   constructor(private prisma: PrismaClient) {}
 
+  async getAllSchedules(email: string): Promise<ReponseUserSchedules> {
+    try {
+      const schedules = await this.prisma.user.findMany({
+        where: {
+          email,
+        },
+        include: {
+          Agendamentos: {
+            select: {
+              tipoServico: true,
+              horario: true,
+              dia: true
+            }
+          }
+        }
+      })
+      const schedulesOfTheUser = schedules.map(({Agendamentos}) => {
+        const serviceType = Agendamentos?.tipoServico || "";
+        const hour = Agendamentos?.horario || new Date();
+        const day = Agendamentos?.dia || "";
+        return new SchedulesToUser(serviceType, hour, day);
+      });
+      return {
+        error: false,
+        data: schedulesOfTheUser
+      }
+    } catch (error: any) {
+      logger.error(error.message);
+      return {
+        error: true,
+      }
+    }
+  }
   async findByEmail(email: string): Promise<ReponseUserRepository> {
     try {
       const user = await this.prisma.user.findUnique({

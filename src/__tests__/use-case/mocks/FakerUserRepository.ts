@@ -1,5 +1,5 @@
 import { User } from "../../../domain/entities/User";
-import { ReponseUserRepository, UserRepository } from "../../../domain/interfaces/UserRepository";
+import { ReponseUserRepository, ReponseUserSchedules, UserRepository } from "../../../domain/interfaces/UserRepository";
 export class FakerUserRepository implements UserRepository {
   public inMemoryDatabase = new Map<string, User>();
 
@@ -65,5 +65,9 @@ export class FakerUserRepository implements UserRepository {
       error: false,
       message: "Usuário atualizado com sucesso"
     }
+  }
+
+  getAllSchedules(email: string): Promise<ReponseUserSchedules> {
+    throw new Error("Method not implemented.");
   }
 } 
