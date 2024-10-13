@@ -3,7 +3,7 @@ export class Barbershop {
   constructor(
     public id: string,
     public nomeDaBarbearia: string,
-    public informacoes: {
+    public informacoes?: {
       cep: string;
       rua: string;
       bairro: string;
@@ -16,8 +16,8 @@ export class Barbershop {
       fotoBanner: string;
       logo: string;
       status: string;
-    },
-    public servicos: {
+    } | undefined,
+    public servicos?: {
       nomeService: string;
       tempoMedio: number;
       preco: number;
