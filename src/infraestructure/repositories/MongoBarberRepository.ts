@@ -47,7 +47,7 @@ export class MongoBarberRepositor implements BarbersRepository {
         message: error.message,
       };
     }finally {
-      this.prisma.$disconnect();
+      await this.prisma.$disconnect();
     }
   }
 }

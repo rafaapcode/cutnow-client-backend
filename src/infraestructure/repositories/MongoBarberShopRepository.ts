@@ -177,7 +177,7 @@ export class MongoBarbershopRepository implements BarbershopRepository {
         statusCode: 500,
       };
     } finally {
-      this.prisma.$disconnect();
+      await this.prisma.$disconnect();
     }
   }
 }

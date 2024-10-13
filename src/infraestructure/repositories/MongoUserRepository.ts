@@ -44,7 +44,7 @@ export class MongoUserRepository implements UserRepository {
         message: "erro interno",
       };
     } finally {
-      this.prisma.$disconnect();
+      await this.prisma.$disconnect();
     }
   }
   async findByEmail(email: string): Promise<ReponseUserRepository> {
@@ -74,7 +74,7 @@ export class MongoUserRepository implements UserRepository {
         error: true,
       };
     } finally {
-      this.prisma.$disconnect();
+      await this.prisma.$disconnect();
     }
   }
   async create(user: User): Promise<ReponseUserRepository> {
@@ -111,7 +111,7 @@ export class MongoUserRepository implements UserRepository {
         error: true,
       };
     } finally {
-      this.prisma.$disconnect();
+      await this.prisma.$disconnect();
     }
   }
   async updateCpf(email: string, cpf: string): Promise<ReponseUserRepository> {
@@ -134,7 +134,7 @@ export class MongoUserRepository implements UserRepository {
         error: true,
       };
     } finally {
-      this.prisma.$disconnect();
+      await this.prisma.$disconnect();
     }
   }
 }
