@@ -1,6 +1,5 @@
 import { Barbers } from "../entities/Barbers";
 import { Barbershop, Barbershops } from "../entities/Barbershop";
-import { SchedulesToBarbershop } from "../entities/Schedules";
 import { BarbershopRepository } from "../interfaces/BarbershopRepository";
 
 export type ResponseBase<T> = {
@@ -18,12 +17,6 @@ export type GetBarbershop = {
   error: boolean;
   message: string;
   barbershop?: Barbershop;
-};
-
-export type GetAllSchedulearbershop = {
-  error: boolean;
-  message: string;
-  schedules?: SchedulesToBarbershop[];
 };
 
 export type GetAllBarbers = {
@@ -85,43 +78,6 @@ export class BarbershopUseCase {
           error,
           message,
           barbershop,
-        },
-      };
-    } catch (error: any) {
-      return {
-        statusCode: 500,
-        data: {
-          error: true,
-          message: error.message,
-        },
-      };
-    }
-  }
-
-  async getAllSchedules(
-    id: string,
-    date: string
-  ): Promise<ResponseBase<GetAllSchedulearbershop>> {
-    try {
-      if (!id || !date) {
-        return {
-          statusCode: 400,
-          data: {
-            error: true,
-            message: "Id and Data is required",
-          },
-        };
-      }
-
-      const { error, message, statusCode, schedules } =
-        await this.barbershopRepository.getAllSchedules(id, date);
-
-      return {
-        statusCode,
-        data: {
-          error,
-          message,
-          schedules,
         },
       };
     } catch (error: any) {

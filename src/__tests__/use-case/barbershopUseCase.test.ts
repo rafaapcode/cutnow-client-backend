@@ -26,32 +26,6 @@ describe("BARBERSHOP USECASE", () => {
     });
   });
 
-  describe("GET Schedules FEAT",  () => {
-    test("Must return 200 if SCHEDULES exist", async () => {
-      const schedules = await sut.getAllSchedules("0002920", "10/11/2024 - 19:00");
-      expect(schedules.statusCode).toBe(200);
-      expect(schedules.data.error).toBeFalsy();
-    });
-
-    test("Must return 404 if SCHEDULES not exist", async () => {
-      const schedules = await sut.getAllSchedules("123123", "10/11/2024 - 19:00");
-      expect(schedules.statusCode).toBe(404);
-      expect(schedules.data.error).toBeTruthy();
-    });
-
-    test("Must return 400 if ID is not provided", async () => {
-      const schedules = await sut.getAllSchedules("", "10/11/2024 - 19:00");
-      expect(schedules.statusCode).toBe(400);
-      expect(schedules.data.error).toBeTruthy();
-    });
-
-    test("Must return 400 if DATA is not provided", async () => {
-      const schedules = await sut.getAllSchedules("123123", "");
-      expect(schedules.statusCode).toBe(400);
-      expect(schedules.data.error).toBeTruthy();
-    });
-  });
-
   describe("GET barbers FEAT",  () => {
     test("Must return 200 if barbers exist", async () => {
       const barbers = await sut.getAllBarbers("4141511");

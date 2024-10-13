@@ -1,11 +1,8 @@
 import { Barbers } from "../../../domain/entities/Barbers";
 import { Requests } from "../../../domain/entities/Requests";
-import { SchedulesToBarber } from "../../../domain/entities/Schedules";
 import {
   BarbersRepository,
-  ResponseBarber,
-  ResponseRequestOfBarber,
-  ResponseSchedulesOfBarber,
+  ResponseBarber
 } from "../../../domain/interfaces/BarbersRepository";
 export class FakerBarberRepository implements BarbersRepository {
   public inMemoryDatabase = new Map<string, Barbers>([
@@ -22,7 +19,7 @@ export class FakerBarberRepository implements BarbersRepository {
           "http://img4.com",
           "http://img5.com"
         ]
-      },[new SchedulesToBarber("Jailson", "Barba", "09/10/2024 - 09:30:00")]),
+      }),
     ],
     [
       "14141415125162",
@@ -54,58 +51,5 @@ export class FakerBarberRepository implements BarbersRepository {
     message: "Barbeiro recuperado com sucesso",
     barber
   }
-  }
-  async getAllSchedules(
-    id: string,
-    data: string
-  ): Promise<ResponseSchedulesOfBarber> {
-    const barber = this.inMemoryDatabase.get(id);
-    if(!barber) {
-      return {
-        error: true,
-        message: "Barbeiro não existe"
-      }
-    }
-
-    if(!barber.schedules) {
-      return {
-        error: true,
-        message: "Não existe agendamentos"
-      }
-    }
-
-    if(barber.schedules[0].data != data) {
-      return {
-        error: true,
-        message: "Não possui agendamentos nessa data"
-      }
-    }
-
-    return {
-      error: false,
-      message: "Agendamentos encontrados",
-      schedules: barber.schedules
-    }
-  }
-  async getRequests(id: string): Promise<ResponseRequestOfBarber> {
-    const barber = this.inMemoryDatabase.get(id);
-    if(!barber) {
-      return {
-        error: true,
-        message: "Barbeiro não encontrado"
-      }
-    }
-    if(!barber.requests) {
-      return {
-        error: true,
-        message: "Nenhuma solicitação encontrada"
-      }
-    }
-
-    return {
-      error: false,
-      message: "Solicitações encontradas",
-      clientRequests: barber.requests
-    }
   }
 }

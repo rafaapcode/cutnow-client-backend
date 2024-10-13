@@ -2,10 +2,9 @@ import type { PrismaClient } from "@prisma/client";
 import {
   BarbershopRepository,
   ReponseAllBarbershops,
-  ReponseAllScheduleToBarbershop,
   ReponseBarbershop,
   ReponseBarbersToBarbershop,
-  ReponseServiceTypes,
+  ReponseServiceTypes
 } from "../../domain/interfaces/BarbershopRepository";
 
 export class MongoBarbershopRepository implements BarbershopRepository {
@@ -83,59 +82,6 @@ export class MongoBarbershopRepository implements BarbershopRepository {
         message: "Barbearia encontrada",
         statusCode: 200,
         barbershop: barbershopInfo,
-      };
-    } catch (error: any) {
-      return {
-        error: true,
-        message: error.message,
-        statusCode: 500,
-      };
-    } finally {
-      this.prisma.$disconnect();
-    }
-  }
-  async getAllSchedules(
-    id: string,
-    date: string
-  ): Promise<ReponseAllScheduleToBarbershop> {
-    try {
-      const schedules = await this.prisma.barbearia.findUnique({
-        where: { id },
-        include: {
-          Agendamentos: {
-            where: {
-              data: date,
-            },
-            select: {
-              nomeCliente: true,
-              tipoServico: true,
-              data: true,
-              barbeiro: {
-                select: {
-                  informacoes: {
-                    select: {
-                      foto: true,
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      });
-
-      if (!schedules || !schedules.Agendamentos) {
-        return {
-          error: true,
-          message: "Nenhuma agendamento disponível",
-          statusCode: 404,
-        };
-      }
-      return {
-        error: false,
-        message: "Agendamentos encontrados",
-        statusCode: 200,
-        schedules: schedules.Agendamentos,
       };
     } catch (error: any) {
       return {

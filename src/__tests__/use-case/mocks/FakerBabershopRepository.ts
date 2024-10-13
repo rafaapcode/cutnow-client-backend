@@ -1,11 +1,9 @@
-import { SchedulesToBarbershop } from "../../../domain/entities/Schedules";
 import {
   BarbershopRepository,
   ReponseAllBarbershops,
-  ReponseAllScheduleToBarbershop,
   ReponseBarbershop,
   ReponseBarbersToBarbershop,
-  ReponseServiceTypes,
+  ReponseServiceTypes
 } from "../../../domain/interfaces/BarbershopRepository";
 export class FakerBarbershopRepository implements BarbershopRepository {
   public inMemoryDatabase = new Map<string, any>([
@@ -47,16 +45,6 @@ export class FakerBarbershopRepository implements BarbershopRepository {
         informacoes: undefined,
         servicos: [{ nomeService: "Cabelo", tempoMedio: 120, preco: 79 }],
         barbeiros: undefined,
-        schedules: new SchedulesToBarbershop(
-          "teste",
-          "cabelo",
-          "10/11/2024 - 19:00",
-          {
-            informacoes: {
-              foto: "http://image.test.com",
-            },
-          }
-        ),
       },
     ],
   ]);
@@ -86,28 +74,6 @@ export class FakerBarbershopRepository implements BarbershopRepository {
       message: "Barbearia encontrada",
       statusCode: 200,
     };
-  }
-  async getAllSchedules(
-    id: string,
-    date: string
-  ): Promise<ReponseAllScheduleToBarbershop> {
-
-    const barbershop = this.inMemoryDatabase.get(id);
-
-    if (!barbershop || !barbershop.schedules) {
-      return {
-        error: true,
-        message: "Nenhuma agendamento disponível",
-        statusCode: 404,
-      };
-    }
-
-    return {
-      error: false,
-      message: "Agendamentos encontrados",
-      statusCode: 200,
-      schedules: barbershop.schedules
-    }
   }
   async getAllBarbers(id: string): Promise<ReponseBarbersToBarbershop> {
     const barbers = this.inMemoryDatabase.get(id);
