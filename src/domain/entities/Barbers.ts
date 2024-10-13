@@ -1,3 +1,4 @@
+import { Requests } from "./Requests";
 import { SchedulesToBarber } from "./Schedules";
 
 export class Barbers {
@@ -12,6 +13,7 @@ export class Barbers {
       foto: string;
       descricao: string;
     } | null,
-    public schedules?: SchedulesToBarber[]
+    public schedules?: SchedulesToBarber[],
+    public requests?: Requests[]
   ) {}
 }
