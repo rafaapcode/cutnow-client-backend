@@ -5,6 +5,7 @@ import {
   ReponseAllScheduleToBarbershop,
   ReponseBarbershop,
   ReponseBarbersToBarbershop,
+  ReponseServiceTypes,
 } from "../../../domain/interfaces/BarbershopRepository";
 export class FakerBarbershopRepository implements BarbershopRepository {
   public inMemoryDatabase = new Map<string, any>([
@@ -124,6 +125,25 @@ export class FakerBarbershopRepository implements BarbershopRepository {
       message: "Barbeiros encontrados",
       statusCode: 200,
       barbers: barbers.barbeiros
+    }
+  }
+
+  async getServicesTypes(id: string): Promise<ReponseServiceTypes> {
+    const servicesType = this.inMemoryDatabase.get(id);
+
+    if(!servicesType || !servicesType.servicos) {
+      return {
+        error: true,
+        message: "Essa barbearia não possuio nenhum serviço",
+        statusCode: 404,
+      }
+    }
+
+    return {
+      error: false,
+      message: "Serviços recuperados",
+      statusCode: 200,
+      services: servicesType.servicos
     }
   }
 }

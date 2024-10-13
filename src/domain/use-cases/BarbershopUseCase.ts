@@ -3,46 +3,45 @@ import { Barbershop, Barbershops } from "../entities/Barbershop";
 import { SchedulesToBarbershop } from "../entities/Schedules";
 import { BarbershopRepository } from "../interfaces/BarbershopRepository";
 
-export type GetAllBarbershopsResponse = {
+export type ResponseBase<T> = {
   statusCode: number;
-  data: {
-    error: boolean;
-    message: string;
-    barbershops?: Barbershops[];
-  };
+  data: T;
 };
 
-export type GetBarbershopResponse = {
-  statusCode: number;
-  data: {
-    error: boolean;
-    message: string;
-    barbershop?: Barbershop;
-  };
+export type GetAllBarbershops = {
+  error: boolean;
+  message: string;
+  barbershops?: Barbershops[];
 };
 
-export type GetAllSchedulearbershopResponse = {
-  statusCode: number;
-  data: {
-    error: boolean;
-    message: string;
-    schedules?: SchedulesToBarbershop[];
-  };
+export type GetBarbershop = {
+  error: boolean;
+  message: string;
+  barbershop?: Barbershop;
 };
 
-export type GetAllBarbersResponse = {
-  statusCode: number;
-  data: {
-    error: boolean;
-    message: string;
-    barbers?: Barbers[];
-  };
+export type GetAllSchedulearbershop = {
+  error: boolean;
+  message: string;
+  schedules?: SchedulesToBarbershop[];
+};
+
+export type GetAllBarbers = {
+  error: boolean;
+  message: string;
+  barbers?: Barbers[];
+};
+
+export type GetServicesType = {
+  error: boolean;
+  message: string;
+  services?: { nomeService: string; preco: number }[];
 };
 
 export class BarbershopUseCase {
   constructor(private barbershopRepository: BarbershopRepository) {}
 
-  async getAllBarbershops(): Promise<GetAllBarbershopsResponse> {
+  async getAllBarbershops(): Promise<ResponseBase<GetAllBarbershops>> {
     try {
       const { error, message, statusCode, barbershop } =
         await this.barbershopRepository.getAllBarbershops();
@@ -65,7 +64,7 @@ export class BarbershopUseCase {
     }
   }
 
-  async getBarbershop(id: string): Promise<GetBarbershopResponse> {
+  async getBarbershop(id: string): Promise<ResponseBase<GetBarbershop>> {
     try {
       if (!id) {
         return {
@@ -102,7 +101,7 @@ export class BarbershopUseCase {
   async getAllSchedules(
     id: string,
     date: string
-  ): Promise<GetAllSchedulearbershopResponse> {
+  ): Promise<ResponseBase<GetAllSchedulearbershop>> {
     try {
       if (!id || !date) {
         return {
@@ -136,7 +135,7 @@ export class BarbershopUseCase {
     }
   }
 
-  async getAllBarbers(id: string): Promise<GetAllBarbersResponse> {
+  async getAllBarbers(id: string): Promise<ResponseBase<GetAllBarbers>> {
     try {
       if (!id) {
         return {
@@ -148,16 +147,50 @@ export class BarbershopUseCase {
         };
       }
 
-      const {error, message, statusCode, barbers} = await this.barbershopRepository.getAllBarbers(id);
+      const { error, message, statusCode, barbers } =
+        await this.barbershopRepository.getAllBarbers(id);
 
       return {
         statusCode,
         data: {
           error,
           message,
-          barbers
-        }
+          barbers,
+        },
+      };
+    } catch (error: any) {
+      return {
+        statusCode: 500,
+        data: {
+          error: true,
+          message: error.message,
+        },
+      };
+    }
+  }
+
+  async getServicesType(id: string): Promise<ResponseBase<GetServicesType>> {
+    try {
+      if (!id) {
+        return {
+          statusCode: 400,
+          data: {
+            error: true,
+            message: "Id is required",
+          },
+        };
       }
+      const { error, message, statusCode, services } =
+        await this.barbershopRepository.getServicesTypes(id);
+
+      return {
+        statusCode,
+        data: {
+          error,
+          message,
+          services,
+        },
+      };
     } catch (error: any) {
       return {
         statusCode: 500,

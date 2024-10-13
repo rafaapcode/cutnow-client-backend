@@ -5,11 +5,11 @@ import {
   ReponseAllScheduleToBarbershop,
   ReponseBarbershop,
   ReponseBarbersToBarbershop,
+  ReponseServiceTypes,
 } from "../../domain/interfaces/BarbershopRepository";
 
 export class MongoBarbershopRepository implements BarbershopRepository {
   constructor(private prisma: PrismaClient) {}
-
   async getAllBarbershops(): Promise<ReponseAllBarbershops> {
     try {
       const barbershops = await this.prisma.barbearia.findMany({
@@ -135,22 +135,22 @@ export class MongoBarbershopRepository implements BarbershopRepository {
         error: false,
         message: "Agendamentos encontrados",
         statusCode: 200,
-        schedules: schedules.Agendamentos
-      }
+        schedules: schedules.Agendamentos,
+      };
     } catch (error: any) {
       return {
         error: true,
         message: error.message,
         statusCode: 500,
       };
-    }finally {
+    } finally {
       this.prisma.$disconnect();
     }
   }
   async getAllBarbers(id: string): Promise<ReponseBarbersToBarbershop> {
     try {
       const barbers = await this.prisma.barbearia.findUnique({
-        where: {id},
+        where: { id },
         include: {
           barbeiro: {
             select: {
@@ -161,34 +161,75 @@ export class MongoBarbershopRepository implements BarbershopRepository {
               informacoes: {
                 select: {
                   foto: true,
-                  descricao: true
-                }
-              }
-            }
-          }
-        }
+                  descricao: true,
+                },
+              },
+            },
+          },
+        },
       });
 
-      if(!barbers || !barbers.barbeiro) {
+      if (!barbers || !barbers.barbeiro) {
         return {
           error: true,
           message: "Nenhum barbeiro encontrado",
-          statusCode: 404
-        }
+          statusCode: 404,
+        };
       }
 
       return {
         error: false,
         message: "Barbeiros encontrados",
         statusCode: 200,
-        barbers: barbers.barbeiro
+        barbers: barbers.barbeiro,
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        message: error.message,
+        statusCode: 500,
+      };
+    } finally {
+      this.prisma.$disconnect();
+    }
+  }
+
+  async getServicesTypes(id: string): Promise<ReponseServiceTypes> {
+    try {
+      const serviceTypes = await this.prisma.barbearia.findUnique({
+        where: {
+          id
+        },
+        select: {
+          servicos: {
+            select: {
+              nomeService: true,
+              preco: true
+            }
+          }
+        }
+      });
+
+      if(!serviceTypes || !serviceTypes.servicos) {
+        return {
+          error: true,
+          message: "Essa barbearia não possuio nenhum serviço",
+          statusCode: 404,
+        }
+      }
+
+      return {
+        error: false,
+        message: "Serviços recuperados",
+        statusCode: 200,
+        services: serviceTypes.servicos
       }
     } catch (error: any) {
       return {
         error: true,
         message: error.message,
-        statusCode: 500
-      }
+        statusCode: 500,
+      };
     } finally {
       this.prisma.$disconnect();
     }

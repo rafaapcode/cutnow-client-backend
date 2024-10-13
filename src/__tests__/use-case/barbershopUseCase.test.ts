@@ -6,7 +6,7 @@ describe("BARBERSHOP USECASE", () => {
   const fakerRepo = new FakerBarbershopRepository();
   const sut = new BarbershopUseCase(fakerRepo);
 
-  describe("GET Barbershop FEAT", async () => {
+  describe("GET Barbershop FEAT",  () => {
     test("Must return 200, if barberhop exist", async () => {
       const barbershop = await sut.getBarbershop("123123");
       expect(barbershop.statusCode).toBe(200);
@@ -26,7 +26,7 @@ describe("BARBERSHOP USECASE", () => {
     });
   });
 
-  describe("GET Schedules FEAT", async () => {
+  describe("GET Schedules FEAT",  () => {
     test("Must return 200 if SCHEDULES exist", async () => {
       const schedules = await sut.getAllSchedules("0002920", "10/11/2024 - 19:00");
       expect(schedules.statusCode).toBe(200);
@@ -52,7 +52,7 @@ describe("BARBERSHOP USECASE", () => {
     });
   });
 
-  describe("GET barbers FEAT", async () => {
+  describe("GET barbers FEAT",  () => {
     test("Must return 200 if barbers exist", async () => {
       const barbers = await sut.getAllBarbers("4141511");
       expect(barbers.statusCode).toBe(200);
@@ -70,7 +70,25 @@ describe("BARBERSHOP USECASE", () => {
       expect(barbers.statusCode).toBe(400);
       expect(barbers.data.error).toBeTruthy();
     });
-
   });
 
+  describe("GET SERVICES FEAT",  () => {
+    test("Must return 200 if the services exists", async  () => {
+      const services = await sut.getServicesType("123123");
+      expect(services.statusCode).toBe(200);
+      expect(services.data.error).toBeFalsy();
+    });
+
+    test("Must return 404 if the services not exists", async  () => {
+      const services = await sut.getServicesType("4141511");
+      expect(services.statusCode).toBe(404);
+      expect(services.data.error).toBeTruthy();
+    });
+
+    test("Must return 400 if ID is not provided", async  () => {
+      const services = await sut.getServicesType("");
+      expect(services.statusCode).toBe(400);
+      expect(services.data.error).toBeTruthy();
+    });
+  });
 });
