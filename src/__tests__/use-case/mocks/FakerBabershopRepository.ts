@@ -49,7 +49,7 @@ export class FakerBarbershopRepository implements BarbershopRepository {
         schedules: new SchedulesToBarbershop(
           "teste",
           "cabelo",
-          "010/11/2024 - 19:00",
+          "10/11/2024 - 19:00",
           {
             informacoes: {
               foto: "http://image.test.com",
@@ -70,7 +70,7 @@ export class FakerBarbershopRepository implements BarbershopRepository {
         message: "Id is required",
       };
     }
-    const barbershop = this.getBarbershop(id);
+    const barbershop = this.inMemoryDatabase.get(id);
 
     if (!barbershop) {
       return {
