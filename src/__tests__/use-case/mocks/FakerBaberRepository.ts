@@ -37,7 +37,7 @@ export class FakerBarberRepository implements BarbersRepository {
           "http://img4.com",
           "http://img5.com"
         ]
-      }, [new Requests("992", "Cabelo/Barba", "Lucao", "19/09/2024 - 18:00", "lucaodabike@gmail.com")]),
+      }, undefined, [new Requests("992", "Cabelo/Barba", "Lucao", "19/09/2024 - 18:00", "lucaodabike@gmail.com")]),
     ],
   ]);
 
@@ -82,7 +82,7 @@ export class FakerBarberRepository implements BarbersRepository {
     }
 
     return {
-      error: true,
+      error: false,
       message: "Agendamentos encontrados",
       schedules: barber.schedules
     }
@@ -95,7 +95,6 @@ export class FakerBarberRepository implements BarbersRepository {
         message: "Barbeiro não encontrado"
       }
     }
-
     if(!barber.requests) {
       return {
         error: true,
