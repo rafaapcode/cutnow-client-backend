@@ -48,6 +48,8 @@ export class MongoBarberRepositor implements BarbersRepository {
         error: true,
         message: error.message,
       };
+    }finally {
+      this.prisma.$disconnect();
     }
   }
   async getAllSchedules(
@@ -99,6 +101,8 @@ export class MongoBarberRepositor implements BarbersRepository {
         error: true,
         message: error.message,
       };
+    }finally {
+      this.prisma.$disconnect();
     }
   }
   async getRequests(id: string): Promise<ResponseRequestOfBarber> {
@@ -138,6 +142,8 @@ export class MongoBarberRepositor implements BarbersRepository {
         error: true,
         message: error.message,
       };
+    }finally {
+      this.prisma.$disconnect();
     }
   }
 }

@@ -8,10 +8,10 @@ export class Barbers {
     public nome: string,
     public status: string,
     public informacoes: {
-      portfolio: string[];
-      banner: string;
-      foto: string;
-      descricao: string;
+      portfolio?: string[];
+      banner?: string;
+      foto?: string;
+      descricao?: string;
     } | null,
     public schedules?: SchedulesToBarber[],
     public requests?: Requests[]

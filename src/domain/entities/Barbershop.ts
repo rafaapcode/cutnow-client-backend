@@ -1,6 +1,5 @@
-import { Barbearia } from "@prisma/client";
 
-export class Barbershop implements Partial<Barbearia> {
+export class Barbershop {
   constructor(
     public id: string,
     public nomeDaBarbearia: string,

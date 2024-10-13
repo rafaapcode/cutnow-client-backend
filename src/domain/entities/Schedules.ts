@@ -18,10 +18,10 @@ export class SchedulesToBarbershop {
     public nomeCliente: string,
     public tipoServico: string,
     public data: string,
-    public barber?: {
+    public barbeiro?: {
       informacoes: {
         foto: string;
-      };
+      } | null;
     }
   ) {}
 }
