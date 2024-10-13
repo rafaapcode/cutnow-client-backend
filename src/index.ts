@@ -4,6 +4,7 @@ import express from "express";
 import { logger } from "./infraestructure/logger";
 import { errorHandler } from "./presentation/middleware/errorHandler";
 import { barberRoutes } from "./presentation/routes/barberRoutes";
+import { barbershopRouter } from "./presentation/routes/barbershopRoutes";
 import { oauthRoutes } from "./presentation/routes/oauthRoutes";
 import { userRouter } from "./presentation/routes/userRoutes";
 
@@ -15,6 +16,7 @@ app.use(cookieParser())
 app.use("/auth", oauthRoutes)
 app.use("/user", userRouter)
 app.use("/barber", barberRoutes)
+app.use("/barbershop", barbershopRouter)
 app.use(errorHandler);
 
 
