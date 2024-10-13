@@ -6,6 +6,7 @@ import { errorHandler } from "./presentation/middleware/errorHandler";
 import { barberRoutes } from "./presentation/routes/barberRoutes";
 import { barbershopRouter } from "./presentation/routes/barbershopRoutes";
 import { oauthRoutes } from "./presentation/routes/oauthRoutes";
+import { requestRoutes } from "./presentation/routes/requestRoutes";
 import { userRouter } from "./presentation/routes/userRoutes";
 
 const app = express();
@@ -17,6 +18,7 @@ app.use("/auth", oauthRoutes)
 app.use("/user", userRouter)
 app.use("/barber", barberRoutes)
 app.use("/barbershop", barbershopRouter)
+app.use("/request", requestRoutes)
 app.use(errorHandler);
 
 
