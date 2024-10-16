@@ -128,6 +128,7 @@ export class OAuthUseCase {
         },
       };
     } catch (error: any) {
+      console.log("Erro SignIn Method | Oauth UseCase", error.message);
       return {
         statusCode: 500,
         data: {

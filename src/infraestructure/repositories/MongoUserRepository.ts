@@ -64,6 +64,7 @@ export class MongoUserRepository implements UserRepository {
         error: false,
       };
     } catch (error: any) {
+      console.log("Error findByEmail | MongoUser", error.message);
       return {
         message: error.message,
         error: true,
@@ -98,6 +99,7 @@ export class MongoUserRepository implements UserRepository {
         error: false,
       };
     } catch (error: any) {
+      console.log("Error CreateUser | MongoUser", error.message);
       return {
         message: error.message,
         error: true,
@@ -119,6 +121,7 @@ export class MongoUserRepository implements UserRepository {
         error: false,
       };
     } catch (error: any) {
+      console.log("Error updateCpf | MongoUser", error.message);
       return {
         message: error.message,
         error: true,

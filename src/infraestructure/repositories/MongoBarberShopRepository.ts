@@ -39,6 +39,7 @@ export class MongoBarbershopRepository implements BarbershopRepository {
         barbershop: barbershops,
       };
     } catch (error: any) {
+      console.log("Error getAllBarbershops Method | Mongo BarberShop ", error.message);
       return {
         error: true,
         statusCode: 500,
@@ -84,6 +85,7 @@ export class MongoBarbershopRepository implements BarbershopRepository {
         barbershop: barbershopInfo,
       };
     } catch (error: any) {
+      console.log("Error getBarbershop Method | Mongo BarberShop ", error.message);
       return {
         error: true,
         message: error.message,
@@ -130,6 +132,7 @@ export class MongoBarbershopRepository implements BarbershopRepository {
         barbers: barbers.barbeiro,
       };
     } catch (error: any) {
+      console.log("Error getAllBarbers Method | Mongo BarberShop ", error.message);
       return {
         error: true,
         message: error.message,
@@ -139,7 +142,6 @@ export class MongoBarbershopRepository implements BarbershopRepository {
       this.prisma.$disconnect();
     }
   }
-
   async getServicesTypes(id: string): Promise<ReponseServiceTypes> {
     try {
       const serviceTypes = await this.prisma.barbearia.findUnique({
@@ -171,6 +173,7 @@ export class MongoBarbershopRepository implements BarbershopRepository {
         services: serviceTypes.servicos
       }
     } catch (error: any) {
+      console.log("Error getServicesTypes Method | Mongo BarberShop ", error.message);
       return {
         error: true,
         message: error.message,

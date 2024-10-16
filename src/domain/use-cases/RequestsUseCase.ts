@@ -27,6 +27,7 @@ export class RequestUseCase {
 
       return await this.requestRepository.create(inputData);
     } catch (error: any) {
+      console.log("Error CreateRequest | Request UseCase", error.message);
       return {
         error: true,
         message: error.message,
@@ -47,6 +48,7 @@ export class RequestUseCase {
 
       return await this.requestRepository.delete(id);
     } catch (error: any) {
+      console.log("Error DeleteRequest | Request UseCase", error.message);
       return {
         error: true,
         message: error.message,

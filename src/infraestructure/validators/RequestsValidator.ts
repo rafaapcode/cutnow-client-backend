@@ -28,6 +28,7 @@ export class RequestValidator implements IValidator<NewRequest> {
         message: "Input data is correct"
       }
     } catch (error: any) {
+      console.log("Error Validate Method | RequestValidator ", error.message);
       return {
         error: true,
         message: error.message

@@ -47,6 +47,7 @@ export class BarbershopUseCase {
         },
       };
     } catch (error: any) {
+      console.log("Error getAllBarbershops Method | BarbershopUseCase ", error.message);
       return {
         statusCode: 500,
         data: {
@@ -81,6 +82,7 @@ export class BarbershopUseCase {
         },
       };
     } catch (error: any) {
+      console.log("Error getBarbershop Method | BarbershopUseCase ", error.message);
       return {
         statusCode: 500,
         data: {
@@ -115,6 +117,7 @@ export class BarbershopUseCase {
         },
       };
     } catch (error: any) {
+      console.log("Error getAllBarbers Method | BarbershopUseCase ", error.message);
       return {
         statusCode: 500,
         data: {
@@ -148,6 +151,7 @@ export class BarbershopUseCase {
         },
       };
     } catch (error: any) {
+      console.log("Error getServicesType Method | BarbershopUseCase ", error.message);
       return {
         statusCode: 500,
         data: {

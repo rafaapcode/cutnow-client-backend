@@ -58,6 +58,7 @@ export class BarberUseCase {
         },
       };
     } catch (error: any) {
+      console.log("Error getBarber Method | Barber UseCase", error.message);
       return {
         statusCode: 500,
         data: {

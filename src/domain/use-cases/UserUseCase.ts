@@ -94,6 +94,7 @@ export class UserUseCase {
       }
     }
    } catch (error: any) {
+      console.log("Error getAllSchedules | User UseCase ", error.message);
       return {
         statusCode: 500,
         data: {

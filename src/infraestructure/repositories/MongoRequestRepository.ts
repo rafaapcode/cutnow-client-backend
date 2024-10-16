@@ -34,6 +34,7 @@ export class MongoRequestRepository implements RequestRepository {
           }
         });
     } catch (error: any) {
+        console.log("Error CreateRequest | Mongo Request ", error.message);
         return  {
           error: true,
           message: error.message,
@@ -63,6 +64,7 @@ export class MongoRequestRepository implements RequestRepository {
         statusCode: 200
       }
     } catch (error: any) {
+      console.log("Error DeleteRequest | Mongo Request ", error.message);
       return {
         error: true, 
         message: error.message,

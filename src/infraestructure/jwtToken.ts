@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import { JWTTokenRepository, PayloadTokenType, ResponseAuthVerification, ResponseToken } from "../domain/interfaces/JwtTokenRepository";
-import { logger } from "./logger";
 
 export class JwtToken implements JWTTokenRepository {
   createToken(payload: PayloadTokenType): ResponseToken {
@@ -12,6 +11,7 @@ export class JwtToken implements JWTTokenRepository {
         token
       }
     } catch (error: any) {
+      console.log("Error CreateToken Method | JwtToken ", error.message);
       return {
         error: true,
         message: error.message
@@ -37,7 +37,7 @@ export class JwtToken implements JWTTokenRepository {
       }
 
     } catch (error: any) {
-      logger.error(error.message);
+      console.log("Error verifyToken Method | JwtToken ", error.message);
       return {
         error: true,
         message: error.message,

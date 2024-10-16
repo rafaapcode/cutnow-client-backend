@@ -42,6 +42,7 @@ export class MongoBarberRepositor implements BarbersRepository {
         barber,
       };
     } catch (error: any) {
+      console.log("Error getBarber Method | Mongo Barber ", error.message);
       return {
         error: true,
         message: error.message,
