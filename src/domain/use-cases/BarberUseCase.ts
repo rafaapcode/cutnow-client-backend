@@ -1,4 +1,3 @@
-import { logger } from "../../infraestructure/logger";
 import { Barbers } from "../entities/Barbers";
 import { BarbersRepository } from "../interfaces/BarbersRepository";
 
@@ -17,7 +16,6 @@ export class BarberUseCase {
   async getBarber(id: string): Promise<GetBarberResponse> {
     try {
       if (!id) {
-        logger.warn("Id não enviado");
         return {
           data: {
             error: true,
@@ -32,7 +30,6 @@ export class BarberUseCase {
       );
 
       if (error && !barber) {
-        logger.error(message);
         return {
           statusCode: 404,
           data: {
@@ -43,7 +40,6 @@ export class BarberUseCase {
       }
 
       if (error) {
-        logger.error(message);
         return {
           statusCode: 400,
           data: {
@@ -62,7 +58,6 @@ export class BarberUseCase {
         },
       };
     } catch (error: any) {
-      logger.error(error.message);
       return {
         statusCode: 500,
         data: {

@@ -1,4 +1,3 @@
-import { logger } from "../../infraestructure/logger";
 import { OAuthRepository } from "../interfaces/OAuthRepository";
 import { JwtUseCase } from "./JwtUseCase";
 import { UserUseCase } from "./UserUseCase";
@@ -28,7 +27,6 @@ export class OAuthUseCase {
   async signIn(code: string): Promise<OauthUseCaseResponse> {
     try {
       if (!code) {
-        logger.error(`Code não existe: ${code}`);
         return {
           statusCode: 403,
           data: {
@@ -40,7 +38,6 @@ export class OAuthUseCase {
       }
 
       if (typeof code !== "string") {
-        logger.error(`Code não é do tipo string: ${typeof code}`);
         return {
           statusCode: 400,
           data: {
@@ -54,7 +51,6 @@ export class OAuthUseCase {
       const response = await this.oauthRepository.signIn(code);
 
       if (response.error) {
-        logger.error(`Erro ao fazer login : ${response.message}`);
         return {
           statusCode: 400,
           data: {
@@ -66,7 +62,6 @@ export class OAuthUseCase {
       }
 
       if (!response.data) {
-        logger.error(`Erro ao buscar dados do usuário : ${response.data}`);
         return {
           statusCode: 500,
           data: {
@@ -81,7 +76,6 @@ export class OAuthUseCase {
         response.data.email
       );
       if (!userExists.error) {
-        logger.info("Criando o token para usuário já existente");
         const token = this.jwtUseCase.createToken({
           email: userExists.data?.email!,
           nome: userExists.data?.nome!,
@@ -105,7 +99,6 @@ export class OAuthUseCase {
       const userCreated = await this.userUseCase.create(response.data);
 
       if (userCreated.error) {
-        logger.error(`Erro ao criar o usuário: ${userCreated}`);
         return {
           statusCode: 500,
           data: {
@@ -120,7 +113,6 @@ export class OAuthUseCase {
         email: userCreated.data?.email!,
         nome: userCreated.data?.nome!,
       });
-      logger.info("Token criado para usuário adicionado");
       return {
         statusCode: 201,
         data: {
@@ -136,7 +128,6 @@ export class OAuthUseCase {
         },
       };
     } catch (error: any) {
-      logger.error(error);
       return {
         statusCode: 500,
         data: {
