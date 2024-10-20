@@ -3,6 +3,7 @@ import {
   BarbershopRepository,
   ReponseAllBarbershops,
   ReponseBarbershop,
+  ReponseBarbershopByName,
   ReponseBarbersToBarbershop,
   ReponseServiceTypes
 } from "../../domain/interfaces/BarbershopRepository";
@@ -180,6 +181,51 @@ export class MongoBarbershopRepository implements BarbershopRepository {
         statusCode: 500,
       };
     } finally {
+      await this.prisma.$disconnect();
+    }
+  }
+  async getBarbershopByName(name: string): Promise<ReponseBarbershopByName> {
+    try {
+      const barbershop = await this.prisma.barbearia.findMany({
+        where: {
+          nomeDaBarbearia: {
+            contains: name
+          }
+        },
+        select: {
+          id: true,
+          nomeDaBarbearia: true,
+          informacoes: {
+            select: {
+              logo: true,
+              status: true
+            }
+          }
+        }
+      });
+
+      if (!barbershop) {
+        return {
+          error: true,
+          message: "Nenhuma barbearia encontrada",
+          statusCode: 404,
+        };
+      }
+      return {
+        error: false,
+        message: "Barbearias encontradas",
+        statusCode: 200,
+        barbershops: barbershop,
+      };
+
+    } catch (error: any) {
+      console.log("Error getBarbershopByname Method | Mongo BarberShop ", error.message);
+      return {
+        error: true,
+        statusCode: 500,
+        message: error.message,
+      };
+    }finally {
       await this.prisma.$disconnect();
     }
   }

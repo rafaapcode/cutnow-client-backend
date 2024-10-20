@@ -13,6 +13,12 @@ export type GetAllBarbershops = {
   barbershops?: Barbershops[];
 };
 
+export type GetBarbershopByName = {
+  error: boolean;
+  message: string;
+  barbershops?: Barbershops[];
+};
+
 export type GetBarbershop = {
   error: boolean;
   message: string;
@@ -47,7 +53,10 @@ export class BarbershopUseCase {
         },
       };
     } catch (error: any) {
-      console.log("Error getAllBarbershops Method | BarbershopUseCase ", error.message);
+      console.log(
+        "Error getAllBarbershops Method | BarbershopUseCase ",
+        error.message
+      );
       return {
         statusCode: 500,
         data: {
@@ -82,7 +91,10 @@ export class BarbershopUseCase {
         },
       };
     } catch (error: any) {
-      console.log("Error getBarbershop Method | BarbershopUseCase ", error.message);
+      console.log(
+        "Error getBarbershop Method | BarbershopUseCase ",
+        error.message
+      );
       return {
         statusCode: 500,
         data: {
@@ -117,7 +129,10 @@ export class BarbershopUseCase {
         },
       };
     } catch (error: any) {
-      console.log("Error getAllBarbers Method | BarbershopUseCase ", error.message);
+      console.log(
+        "Error getAllBarbers Method | BarbershopUseCase ",
+        error.message
+      );
       return {
         statusCode: 500,
         data: {
@@ -151,7 +166,50 @@ export class BarbershopUseCase {
         },
       };
     } catch (error: any) {
-      console.log("Error getServicesType Method | BarbershopUseCase ", error.message);
+      console.log(
+        "Error getServicesType Method | BarbershopUseCase ",
+        error.message
+      );
+      return {
+        statusCode: 500,
+        data: {
+          error: true,
+          message: error.message,
+        },
+      };
+    }
+  }
+
+  async getBarbershopByName(
+    name: string
+  ): Promise<ResponseBase<GetBarbershopByName>> {
+    try {
+      if (!name) {
+        return {
+          statusCode: 400,
+          data: {
+            message: "Nome é obrigatório",
+            error: true,
+          },
+        };
+      }
+
+      const { error, message, statusCode, barbershops } =
+        await this.barbershopRepository.getBarbershopByName(name);
+
+      return {
+        statusCode,
+        data: {
+          error,
+          message,
+          barbershops: barbershops,
+        },
+      };
+    } catch (error: any) {
+      console.log(
+        "Error getBarbershopByName Method | BarbershopUseCase ",
+        error.message
+      );
       return {
         statusCode: 500,
         data: {

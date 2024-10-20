@@ -8,6 +8,13 @@ export type ReponseAllBarbershops = {
   barbershop?: Barbershops[]
 }
 
+export type ReponseBarbershopByName = {
+  statusCode: number;
+  error: boolean;
+  message: string;
+  barbershops?: Barbershops[]
+}
+
 export type ReponseBarbershop = {
   statusCode: number;
   error: boolean;
@@ -34,4 +41,5 @@ export interface BarbershopRepository {
   getBarbershop(id: string): Promise<ReponseBarbershop>
   getAllBarbers(id: string): Promise<ReponseBarbersToBarbershop>
   getServicesTypes(id: string): Promise<ReponseServiceTypes>
+  getBarbershopByName(name: string): Promise<ReponseBarbershopByName>
 ;}

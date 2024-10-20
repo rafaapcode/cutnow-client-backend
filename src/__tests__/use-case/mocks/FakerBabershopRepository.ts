@@ -2,6 +2,7 @@ import {
   BarbershopRepository,
   ReponseAllBarbershops,
   ReponseBarbershop,
+  ReponseBarbershopByName,
   ReponseBarbersToBarbershop,
   ReponseServiceTypes
 } from "../../../domain/interfaces/BarbershopRepository";
@@ -111,5 +112,8 @@ export class FakerBarbershopRepository implements BarbershopRepository {
       statusCode: 200,
       services: servicesType.servicos
     }
+  }
+  async getBarbershopByName(name: string): Promise<ReponseBarbershopByName> {
+    throw new Error("Method not implemented.");
   }
 }

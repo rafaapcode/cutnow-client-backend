@@ -21,6 +21,12 @@ export type HttpAllBarberShopsRes = {
   barbershop?: Barbershops[];
 };
 
+export type HttpAllBarberShopByName = {
+  error: boolean;
+  message: string;
+  barbershops?: Barbershops[];
+};
+
 export type HttpBarberShopRes = {
   error: boolean;
   message: string;
@@ -44,4 +50,5 @@ export interface IBarbershopAdapter {
   getAllBarbershops(): Promise<HttpBaseResponse<HttpAllBarberShopsRes>>;
   getBarbershop(req: HttpRequestParams): Promise<HttpBaseResponse<HttpBarberShopRes>>;
   getAllBarbers(req: HttpRequestParams): Promise<HttpBaseResponse<HttpBarbersRes>>;
+  getBarbershopByName(req: HttpRequestQueryParams): Promise<HttpBaseResponse<HttpAllBarberShopByName>>;
 }

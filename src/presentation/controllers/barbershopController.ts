@@ -1,16 +1,17 @@
 import {
+  HttpAllBarberShopByName,
   HttpAllBarberShopsRes,
   HttpBarberShopRes,
   HttpBarbersRes,
   HttpBaseResponse,
   HttpRequestParams,
-  IBarbershopAdapter
+  HttpRequestQueryParams,
+  IBarbershopAdapter,
 } from "../../adapters/barbershopAdapter/IBarbershopAdapter";
 import { BarbershopUseCase } from "../../domain/use-cases/BarbershopUseCase";
 
 export class BarbershopController implements IBarbershopAdapter {
   constructor(private barbershopUseCase: BarbershopUseCase) {}
-
   async getAllBarbershops(): Promise<HttpBaseResponse<HttpAllBarberShopsRes>> {
     const { data, statusCode } =
       await this.barbershopUseCase.getAllBarbershops();
@@ -37,6 +38,17 @@ export class BarbershopController implements IBarbershopAdapter {
     const { id } = req.params;
     const { data, statusCode } = await this.barbershopUseCase.getAllBarbers(id);
 
+    return {
+      statusCode,
+      body: data,
+    };
+  }
+  async getBarbershopByName(
+    req: HttpRequestQueryParams
+  ): Promise<HttpBaseResponse<HttpAllBarberShopByName>> {
+    const { name } = req.query;;
+    const { data, statusCode } =
+      await this.barbershopUseCase.getBarbershopByName(name);
     return {
       statusCode,
       body: data,

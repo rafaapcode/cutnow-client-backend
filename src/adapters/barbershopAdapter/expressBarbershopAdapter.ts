@@ -29,4 +29,15 @@ export class ExpressBarbershopAdapter {
       res.status(statusCode).json(body);
     };
   }
+
+  static getBarbershopByName(router: IBarbershopAdapter) {
+    return async (req: Request, res: Response) => {
+      const request = {
+        query: req.query,
+      };
+
+      const { body, statusCode } = await router.getBarbershopByName(request);
+      res.status(statusCode).json(body);
+    };
+  }
 }
