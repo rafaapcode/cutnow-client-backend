@@ -19,18 +19,6 @@ export class ExpressBarbershopAdapter {
       res.status(statusCode).json(body);
     };
   }
-
-  static getAllSchedules(router: IBarbershopAdapter) {
-    return async (req: Request, res: Response) => {
-      const request = {
-        query: req.query,
-      };
-
-      const { body, statusCode } = await router.getAllSchedules(request);
-      res.status(statusCode).json(body);
-    };
-  }
-
   static getAllBarbers(router: IBarbershopAdapter) {
     return async (req: Request, res: Response) => {
       const request = {

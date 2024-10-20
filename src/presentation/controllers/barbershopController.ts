@@ -4,9 +4,7 @@ import {
   HttpBarbersRes,
   HttpBaseResponse,
   HttpRequestParams,
-  HttpRequestQueryParams,
-  HttpSchedulesRes,
-  IBarbershopAdapter,
+  IBarbershopAdapter
 } from "../../adapters/barbershopAdapter/IBarbershopAdapter";
 import { BarbershopUseCase } from "../../domain/use-cases/BarbershopUseCase";
 
@@ -27,20 +25,6 @@ export class BarbershopController implements IBarbershopAdapter {
     const { id } = req.params;
 
     const { data, statusCode } = await this.barbershopUseCase.getBarbershop(id);
-
-    return {
-      statusCode,
-      body: data,
-    };
-  }
-  async getAllSchedules(
-    req: HttpRequestQueryParams
-  ): Promise<HttpBaseResponse<HttpSchedulesRes>> {
-    const { id, date } = req.query;
-    const { data, statusCode } = await this.barbershopUseCase.getAllSchedules(
-      id,
-      date
-    );
 
     return {
       statusCode,

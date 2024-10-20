@@ -60,12 +60,12 @@ export class BarbershopUseCase {
 
   async getBarbershop(id: string): Promise<ResponseBase<GetBarbershop>> {
     try {
-      if (!id) {
+      if (!id || id.length < 12) {
         return {
           statusCode: 400,
           data: {
             error: true,
-            message: "Id is required",
+            message: "Id is required and must be a OBJECTID",
           },
         };
       }
@@ -95,7 +95,7 @@ export class BarbershopUseCase {
 
   async getAllBarbers(id: string): Promise<ResponseBase<GetAllBarbers>> {
     try {
-      if (!id) {
+      if (!id || id.length < 12) {
         return {
           statusCode: 400,
           data: {

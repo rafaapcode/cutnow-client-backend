@@ -43,8 +43,5 @@ export type HttpBarbersRes = {
 export interface IBarbershopAdapter {
   getAllBarbershops(): Promise<HttpBaseResponse<HttpAllBarberShopsRes>>;
   getBarbershop(req: HttpRequestParams): Promise<HttpBaseResponse<HttpBarberShopRes>>;
-  getAllSchedules(
-    req: HttpRequestQueryParams
-  ): Promise<HttpBaseResponse<HttpSchedulesRes>>;
   getAllBarbers(req: HttpRequestParams): Promise<HttpBaseResponse<HttpBarbersRes>>;
 }
