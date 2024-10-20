@@ -4,13 +4,14 @@ import {
   ReponseBarbershop,
   ReponseBarbershopByName,
   ReponseBarbersToBarbershop,
-  ReponseServiceTypes
+  ReponseServiceTypes,
 } from "../../../domain/interfaces/BarbershopRepository";
 export class FakerBarbershopRepository implements BarbershopRepository {
   public inMemoryDatabase = new Map<string, any>([
     [
-      "123123",
+      "123123123123",
       {
+        nomeDaBarbearia: "zé ninguém",
         informacoes: null,
         servicos: [{ nomeService: "Cabelo", tempoMedio: 120, preco: 79 }],
         barbeiros: [
@@ -25,8 +26,9 @@ export class FakerBarbershopRepository implements BarbershopRepository {
       },
     ],
     [
-      "4141511",
+      "41415114141511",
       {
+        nomeDaBarbearia: "Barbers",
         informacoes: undefined,
         servicos: undefined,
         barbeiros: [
@@ -41,8 +43,9 @@ export class FakerBarbershopRepository implements BarbershopRepository {
       },
     ],
     [
-      "0002920",
+      "00029200002920",
       {
+        nomeDaBarbearia: "Barbers",
         informacoes: undefined,
         servicos: [{ nomeService: "Cabelo", tempoMedio: 120, preco: 79 }],
         barbeiros: undefined,
@@ -79,41 +82,62 @@ export class FakerBarbershopRepository implements BarbershopRepository {
   async getAllBarbers(id: string): Promise<ReponseBarbersToBarbershop> {
     const barbers = this.inMemoryDatabase.get(id);
 
-    if(!barbers || !barbers.barbeiros) {
+    if (!barbers || !barbers.barbeiros) {
       return {
         error: true,
         message: "Nenhum barbeiro encontrado",
-        statusCode: 404
-      }
+        statusCode: 404,
+      };
     }
 
     return {
       error: false,
       message: "Barbeiros encontrados",
       statusCode: 200,
-      barbers: barbers.barbeiros
-    }
+      barbers: barbers.barbeiros,
+    };
   }
 
   async getServicesTypes(id: string): Promise<ReponseServiceTypes> {
     const servicesType = this.inMemoryDatabase.get(id);
 
-    if(!servicesType || !servicesType.servicos) {
+    if (!servicesType || !servicesType.servicos) {
       return {
         error: true,
         message: "Essa barbearia não possuio nenhum serviço",
         statusCode: 404,
-      }
+      };
     }
 
     return {
       error: false,
       message: "Serviços recuperados",
       statusCode: 200,
-      services: servicesType.servicos
-    }
+      services: servicesType.servicos,
+    };
   }
   async getBarbershopByName(name: string): Promise<ReponseBarbershopByName> {
-    throw new Error("Method not implemented.");
+    const barbershopsWithName = [];
+
+    for (let [, val] of this.inMemoryDatabase) {
+      if (val.nomeDaBarbearia === name) {
+        barbershopsWithName.push(val);
+      }
+    }
+
+    if (barbershopsWithName.length === 0) {
+      return {
+        error: true,
+        message: "Nenhuma barbearia encontrada",
+        statusCode: 404,
+      };
+    }
+
+    return {
+      error: false,
+      message: "Barbearias encontradas",
+      statusCode: 200,
+      barbershops: barbershopsWithName,
+    };
   }
 }

@@ -8,13 +8,13 @@ describe("BARBERSHOP USECASE", () => {
 
   describe("GET Barbershop FEAT",  () => {
     test("Must return 200, if barberhop exist", async () => {
-      const barbershop = await sut.getBarbershop("123123");
+      const barbershop = await sut.getBarbershop("123123123123");
       expect(barbershop.statusCode).toBe(200);
       expect(barbershop.data.error).toBeFalsy();
     });
 
     test("Must return 404, if barberhop not exist", async () => {
-      const barbershop = await sut.getBarbershop("11111");
+      const barbershop = await sut.getBarbershop("1111112312311");
       expect(barbershop.statusCode).toBe(404);
       expect(barbershop.data.error).toBeTruthy();
     });
@@ -24,17 +24,35 @@ describe("BARBERSHOP USECASE", () => {
       expect(barbershop.statusCode).toBe(400);
       expect(barbershop.data.error).toBeTruthy();
     });
+
+    test("Must return 200, if Barbershops was found", async () => {
+      const barbershop = await sut.getBarbershopByName("Barbers");
+      expect(barbershop.statusCode).toBe(200);
+      expect(barbershop.data.barbershops?.length).toBe(2);
+    });
+
+    test("Must return 400, if NAME is not provided", async () => {
+      const barbershop = await sut.getBarbershopByName("");
+      expect(barbershop.statusCode).toBe(400);
+      expect(barbershop.data.error).toBeTruthy();
+    });
+
+    test("Must return 404, if BARBERSHOPS is not found", async () => {
+      const barbershop = await sut.getBarbershopByName("Barbersssss");
+      expect(barbershop.statusCode).toBe(404);
+      expect(barbershop.data.error).toBeTruthy();
+    });
   });
 
   describe("GET barbers FEAT",  () => {
     test("Must return 200 if barbers exist", async () => {
-      const barbers = await sut.getAllBarbers("4141511");
+      const barbers = await sut.getAllBarbers("41415114141511");
       expect(barbers.statusCode).toBe(200);
       expect(barbers.data.error).toBeFalsy();
     });
 
     test("Must return 404 if barbers not exist", async () => {
-      const barbers = await sut.getAllBarbers("0002920");
+      const barbers = await sut.getAllBarbers("00029200002920");
       expect(barbers.statusCode).toBe(404);
       expect(barbers.data.error).toBeTruthy();
     });
@@ -48,13 +66,13 @@ describe("BARBERSHOP USECASE", () => {
 
   describe("GET SERVICES FEAT",  () => {
     test("Must return 200 if the services exists", async  () => {
-      const services = await sut.getServicesType("123123");
+      const services = await sut.getServicesType("123123123123");
       expect(services.statusCode).toBe(200);
       expect(services.data.error).toBeFalsy();
     });
 
     test("Must return 404 if the services not exists", async  () => {
-      const services = await sut.getServicesType("4141511");
+      const services = await sut.getServicesType("41415114141511");
       expect(services.statusCode).toBe(404);
       expect(services.data.error).toBeTruthy();
     });
