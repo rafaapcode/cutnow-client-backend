@@ -17,7 +17,7 @@ router.get("/barbershopbyname", authenticateMiddleware, ExpressBarbershopAdapter
 router.get("/", authenticateMiddleware, ExpressBarbershopAdapter.getAllBarbershops(barbershopController));
 router.get("/:id", authenticateMiddleware, ExpressBarbershopAdapter.getBarbershop(barbershopController));
 router.get("/barbers/:id", authenticateMiddleware, ExpressBarbershopAdapter.getAllBarbers(barbershopController));
-
+router.get("/services/:id", authenticateMiddleware, ExpressBarbershopAdapter.getServicesType(barbershopController));
 
 export { router as barbershopRouter };
 

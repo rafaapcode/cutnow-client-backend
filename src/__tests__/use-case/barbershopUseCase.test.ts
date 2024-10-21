@@ -82,5 +82,11 @@ describe("BARBERSHOP USECASE", () => {
       expect(services.statusCode).toBe(400);
       expect(services.data.error).toBeTruthy();
     });
+
+    test("Must return 400 if ID is not a objectId", async  () => {
+      const services = await sut.getServicesType("1234567892");
+      expect(services.statusCode).toBe(400);
+      expect(services.data.error).toBeTruthy();
+    });
   });
 });

@@ -145,7 +145,7 @@ export class BarbershopUseCase {
 
   async getServicesType(id: string): Promise<ResponseBase<GetServicesType>> {
     try {
-      if (!id) {
+      if (!id || id.length < 12) {
         return {
           statusCode: 400,
           data: {
