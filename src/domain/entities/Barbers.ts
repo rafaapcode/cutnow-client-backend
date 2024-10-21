@@ -14,6 +14,7 @@ export class Barbers {
       descricao?: string;
     } | null,
     public schedules?: SchedulesToBarber[],
-    public requests?: Requests[]
+    public requests?: Requests[],
+    public barbearia_id?: string
   ) {}
 }

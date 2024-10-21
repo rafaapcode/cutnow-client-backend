@@ -7,11 +7,15 @@ import {
   HttpRequestParams,
   HttpRequestQueryParams,
   IBarbershopAdapter,
+  ReponseServiceTypes,
 } from "../../adapters/barbershopAdapter/IBarbershopAdapter";
 import { BarbershopUseCase } from "../../domain/use-cases/BarbershopUseCase";
 
 export class BarbershopController implements IBarbershopAdapter {
   constructor(private barbershopUseCase: BarbershopUseCase) {}
+  getServiceType(req: HttpRequestQueryParams): Promise<HttpBaseResponse<ReponseServiceTypes>> {
+    throw new Error("Method not implemented.");
+  }
   async getAllBarbershops(): Promise<HttpBaseResponse<HttpAllBarberShopsRes>> {
     const { data, statusCode } =
       await this.barbershopUseCase.getAllBarbershops();

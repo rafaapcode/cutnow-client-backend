@@ -15,6 +15,13 @@ export type HttpBaseResponse<T> = {
   body: T;
 };
 
+export type ReponseServiceTypes = {
+  statusCode: number;
+  error: boolean;
+  message: string;
+  services?: {nomeService: string; preco: number}[]
+}
+
 export type HttpAllBarberShopsRes = {
   error: boolean;
   message: string;
@@ -51,4 +58,5 @@ export interface IBarbershopAdapter {
   getBarbershop(req: HttpRequestParams): Promise<HttpBaseResponse<HttpBarberShopRes>>;
   getAllBarbers(req: HttpRequestParams): Promise<HttpBaseResponse<HttpBarbersRes>>;
   getBarbershopByName(req: HttpRequestQueryParams): Promise<HttpBaseResponse<HttpAllBarberShopByName>>;
+  getServiceType(req: HttpRequestQueryParams): Promise<HttpBaseResponse<ReponseServiceTypes>>;
 }

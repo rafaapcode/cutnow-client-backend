@@ -26,6 +26,7 @@ export class MongoBarberRepositor implements BarbersRepository {
               descricao: true,
             },
           },
+          barbearia_id: true
         },
       });
       if (!barber) {

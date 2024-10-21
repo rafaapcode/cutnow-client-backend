@@ -14,8 +14,6 @@ const barberUseCase = new BarberUseCase(barberRepository);
 const barberController = new BarberController(barberUseCase);
 
 router.get("/:id", authenticateMiddleware, ExpressBarberAdapter.getBarber(barberController));
-router.get("/schedules", authenticateMiddleware, ExpressBarberAdapter.getAllSchedules(barberController));
-router.get("/requests/:id", authenticateMiddleware, ExpressBarberAdapter.getAllRequests(barberController));
 
 export { router as barberRoutes };
 
