@@ -75,10 +75,11 @@ model Barbeiro {
 }
 
 model Solicitacoes {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  tipoServico String @db.String
-  nomeCliente String @db.String
-  data        String @db.String
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  tipoServico String  @db.String
+  nomeCliente String  @db.String
+  data        String  @db.String
+  visualizado Boolean @default(false)
 
   emailCliente String @unique @db.String
   usuario      User   @relation(fields: [emailCliente], references: [email], onDelete: Cascade, onUpdate: Cascade)
