@@ -18,8 +18,22 @@ export class MongoUserRepository implements UserRepository {
         include: {
           Agendamentos: {
             select: {
-              tipoServico: true,
-              data: true
+              data: true,
+              barbearia: {
+                select: {
+                  nomeDaBarbearia: true,
+                }
+              },
+              barbeiro: {
+                select: {
+                  nome: true,
+                  informacoes: {
+                    select: {
+                      foto: true
+                    }
+                  }
+                }
+              }
             },
           },
         },
