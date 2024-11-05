@@ -11,7 +11,9 @@ import { userRouter } from "./presentation/routes/userRoutes";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ["https://main.dr6upwfovugxo.amplifyapp.com"]
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"))
